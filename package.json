@@ -1,0 +1,37 @@
+{
+  "name": "gantt-chart",
+  "version": "1.0.0",
+  "description": "Simple web service for task planning",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js"
+  },
+  "author": "Valerii",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.24.5",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "jsdom": "^24.0.0",
+    "path": "^0.12.7"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "testEnvironment": "jsdom",
+    "testMatch": [
+      "**/__tests__/**/*.js",
+      "**/?(*.)+(spec|test).js"
+    ],
+    "moduleFileExtensions": [
+      "js"
+    ]
+  }
+}
