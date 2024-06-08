@@ -1,0 +1,45 @@
+.dashboard-header div, .dashboard-task div {
+    display: inline-flex;
+    margin: 0;
+    padding: 0px 2px;
+    border-right: solid 1px gray;
+}
+
+div.task-assignee {
+    width: 195px;
+}
+
+div.task-name {
+    width: 195px;
+}
+
+div.task-timeline {
+    width: calc(100% - 514px);
+    padding: 0px;
+    right: 106;
+    position: absolute;
+}
+
+div.task-controls {
+    width: 94px;
+    max-width: 94px;
+    right: 0;
+    position: absolute;
+}
+
+.dashboard-header div {
+    height: 36px;
+}
+
+div.dashboard-header, div.dashboard-task {
+    width: 100%;
+    border: solid 1px gray;
+    position: relative;
+}
+
+span.day-span {
+    border-right: solid 1px gray;
+    width: 25px;
+    max-width: 25px;
+    min-width: 25px;
+}

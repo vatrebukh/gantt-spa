@@ -1,3 +1,7 @@
+import { DashboardService } from "./dashboard/dashboard-service.js";
+
+const dashboardService = new DashboardService();
+
 const routes = [
     { path: '/', view: () => viewHome() },
     { path: '/dashboard', view: () => viewDashboard() },
@@ -25,6 +29,6 @@ function viewHome() {
     document.getElementById('root').innerHTML = 'Home';
 }
 
-function viewDashboard() {
-    document.getElementById('root').innerHTML = 'Dashboard';
+async function viewDashboard() {
+    await dashboardService.renderDashboard();
 }
