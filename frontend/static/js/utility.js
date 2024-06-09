@@ -10,3 +10,13 @@ export function addDays(date, days) {
     result.setDate(result.getDate() + days);
     return result;
 }
+
+export function getFormattedDays(startDate, endDate) {
+    let days = getDaysCount(startDate, endDate);
+    let result = [];
+    for (let i = 0; i < days; i++) {
+        result.push(formatDate(addDays(startDate, i)));
+    }
+
+    return result;
+}

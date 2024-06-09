@@ -1,4 +1,4 @@
-import { formatDate, getDaysCount, addDays } from "../utility.js";
+import { getFormattedDays } from "../utility.js";
 
 export default class Task {
     constructor(name, startDate, endDate, assignee) {
@@ -35,12 +35,4 @@ function getSpansHtml(startDate, endDate, globalDays) {
     return spans;
 }
 
-function getFormattedDays(startDate, endDate) {
-    let days = getDaysCount(startDate, endDate);
-    let result = [];
-    for (let i = 0; i < days; i++) {
-        result.push(formatDate(addDays(startDate, i)));
-    }
 
-    return result;
-}

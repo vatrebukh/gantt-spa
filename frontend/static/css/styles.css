@@ -103,4 +103,12 @@ span.task-controls {
     text-decoration: none;
     float: right;
     position: absolute;
-  }
+}
+
+div.dashboard-tasks div:last-child .dnmark{
+    display: none;
+}
+
+div.dashboard-tasks div:first-child .upmark{
+    display: none;
+}

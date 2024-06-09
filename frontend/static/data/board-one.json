@@ -1,25 +1,49 @@
 {
-    "name": "Dashboard",
+    "name": "Team zero: gantt chart",
     "tasks": [
         {
-            "name": "Task 1",
-            "startDate": "2024-06-01",
+            "name": "Dashboard renderering",
+            "startDate": "2024-06-07",
+            "endDate": "2024-06-09",
+            "assignee": "John"
+        },
+        {
+            "name": "Dashboard controlls events",
+            "startDate": "2024-06-09",
+            "endDate": "2024-06-09",
+            "assignee": "John"
+        },
+        {
+            "name": "Add new task to dashboard",
+            "startDate": "2024-06-09",
+            "endDate": "2024-06-10",
+            "assignee": "John"
+        },
+        {
+            "name": "Edit task in dashboard",
+            "startDate": "2024-06-11",
+            "endDate": "2024-06-12",
+            "assignee": "John"
+        },
+        {
+            "name": "Store modified tasks in localstorage",
+            "startDate": "2024-06-12",
+            "endDate": "2024-06-13",
+            "assignee": "John"
+        },
+        {
+            "name": "Add wekends and current date",
+            "startDate": "2024-06-13",
             "endDate": "2024-06-14",
             "assignee": "John"
         },
         {
-            "name": "Task 2",
-            "startDate": "2024-06-08",
-            "endDate": "2024-06-15",
-            "assignee": "Jane"
-        },
-        {
-            "name": "Task 3",
-            "startDate": "2024-06-11",
-            "endDate": "2024-06-25",
-            "assignee": "Jack"
+            "name": "Syncronize scrolling",
+            "startDate": "2024-06-13",
+            "endDate": "2024-06-13",
+            "assignee": "John"
         }
     ],
-    "startDate": "2024-06-01",
-    "endDate": "2024-06-28"
+    "startDate": "2024-06-07",
+    "endDate": "2024-06-30"
 }
