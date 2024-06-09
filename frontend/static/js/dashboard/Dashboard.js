@@ -15,16 +15,18 @@ export class Dashboard {
             <div class="dashboard">
                 <h1>${this.name}</h1>
                 <h2>${this.startDate} - ${this.endDate}</h2>
-                <div class="dashboard-header">
-                    <div class="task-assignee">Assigned to</div>
-                    <div class="task-name">Task name</div>
-                    <div class="task-timeline">
-                        ${arrayDays.map(day => `<span class="day-span">${day}</span>`).join('')}
+                <div class="dashboard-content">
+                    <div class="dashboard-header">
+                        <div class="task-assignee"><span>Assignee</span></div>
+                        <div class="task-name">Task name</div>
+                        <div class="task-timeline">
+                            ${arrayDays.map(day => `<span class="day-span">${day}</span>`).join('')}
+                        </div>
+                        <div class="task-controls">Controls</div>
                     </div>
-                    <div class="task-controls">Controls</div>
-                </div>
-                <div class="dashboard-tasks">
-                    ${this.tasks.map(task => getTaskHtml(task, arrayDays)).join('')}
+                    <div class="dashboard-tasks">
+                        ${this.tasks.map(task => getTaskHtml(task, arrayDays)).join('')}
+                    </div>
                 </div>
             </div>
         `;

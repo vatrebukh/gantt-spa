@@ -1,45 +1,80 @@
+div.dashboard-content {
+    border: solid 2px black;
+}
+
+div.dashboard-header {
+    border-bottom: solid 1px black;
+}
+
+div.dashboard-task {
+    border-bottom: solid 1px gray;
+}
+
+div.dashboard-tasks div:last-child {
+    border-bottom: none;
+}
+
 .dashboard-header div, .dashboard-task div {
     display: inline-flex;
     margin: 0;
-    padding: 0px 2px;
-    border-right: solid 1px gray;
+    border-right: solid 1px black;
 }
 
 .dashboard-header div {
-    height: 36px;
+    height: 46px;
+    padding: 0px 2px;
+}
+
+.dashboard-header div.task-timeline {
+    overflow-x: auto; 
+    overflow-y: hidden;
 }
 
 div.dashboard-header, div.dashboard-task {
     width: 100%;
-    border: solid 1px gray;
     position: relative;
 }
 
+.dashboard-header span.day-span {
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.dashboard-task div.task-name, .dashboard-task div.task-assignee {
+    padding: 2px 2px;
+}
+
 div.task-assignee {
-    width: 195px;
+    width: 145px;
 }
 
 div.task-name {
     width: 195px;
+    margin-left: -4px;
 }
 
 div.task-timeline {
-    width: calc(100% - 484px);
-    padding: 0px;
-    /* position: relative;
-    display: flex; */
-
+    width: calc(100% - 426px);
+    margin-left: -4px;
+    border-right: none;
+    padding: 0;
 }
 
 span.day-span {
-    text-align: center;
-    font-size: 0.8rem;
     border-right: solid 1px gray;
     width: 24px;
     max-width: 24px;
     min-width: 24px;
+    padding: 2px 0px;
 }
 
+span.marked {   
+    background-color: lightgreen;
+}
+
+.dashboard-header div.task-controls {
+    padding: 0px 5px;
+}
 
 div.task-controls {
     width: 64px;
@@ -49,6 +84,7 @@ div.task-controls {
     top: 0;
     position: absolute;
     border-left: solid 1px gray;
+    border-right: none;
     padding: 2px 5px;
 }
 
