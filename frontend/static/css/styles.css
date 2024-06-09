@@ -14,18 +14,20 @@ div.dashboard-tasks div:last-child {
     border-bottom: none;
 }
 
-.dashboard-header div, .dashboard-task div {
+.dashboard-header span {
+    display: inline-flex;
+    height: 46px;
+    padding: 0px 2px;
+    border-right: solid 1px black;
+}
+
+.dashboard-task span {
     display: inline-flex;
     margin: 0;
     border-right: solid 1px black;
 }
 
-.dashboard-header div {
-    height: 46px;
-    padding: 0px 2px;
-}
-
-.dashboard-header div.task-timeline {
+.dashboard-header span.task-timeline {
     overflow-x: auto; 
     overflow-y: hidden;
 }
@@ -40,22 +42,21 @@ div.dashboard-header, div.dashboard-task {
     text-align: center;
 }
 
-.dashboard-task div.task-name, .dashboard-task div.task-assignee {
+span.task-name, span.task-assignee {
     padding: 2px 2px;
+    margin-right: -4px;
 }
 
-div.task-assignee {
+span.task-assignee {
     width: 145px;
 }
 
-div.task-name {
+span.task-name {
     width: 195px;
-    margin-left: -4px;
 }
 
-div.task-timeline {
-    width: calc(100% - 426px);
-    margin-left: -4px;
+span.task-timeline {
+    width: calc(100% - 424px);
     border-right: none;
     padding: 0;
 }
@@ -72,11 +73,7 @@ span.marked {
     background-color: lightgreen;
 }
 
-.dashboard-header div.task-controls {
-    padding: 0px 5px;
-}
-
-div.task-controls {
+span.task-controls {
     width: 64px;
     max-width: 64px;
     right: 0;

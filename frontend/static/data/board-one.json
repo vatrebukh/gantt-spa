@@ -15,11 +15,11 @@
         },
         {
             "name": "Task 3",
-            "startDate": "2024-06-01",
-            "endDate": "2024-06-15",
+            "startDate": "2024-06-11",
+            "endDate": "2024-06-25",
             "assignee": "Jack"
         }
     ],
     "startDate": "2024-06-01",
-    "endDate": "2024-06-21"
+    "endDate": "2024-06-28"
 }

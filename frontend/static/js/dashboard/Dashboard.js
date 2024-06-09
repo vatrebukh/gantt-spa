@@ -17,12 +17,12 @@ export class Dashboard {
                 <h2>${this.startDate} - ${this.endDate}</h2>
                 <div class="dashboard-content">
                     <div class="dashboard-header">
-                        <div class="task-assignee"><span>Assignee</span></div>
-                        <div class="task-name">Task name</div>
-                        <div class="task-timeline">
+                        <span class="task-assignee"><br>Assignee</span>
+                        <span class="task-name"><br>Task name</span>
+                        <span class="task-timeline">
                             ${arrayDays.map(day => `<span class="day-span">${day}</span>`).join('')}
-                        </div>
-                        <div class="task-controls">Controls</div>
+                        </span>
+                        <span class="task-controls"><br>Controls</span>
                     </div>
                     <div class="dashboard-tasks">
                         ${this.tasks.map(task => getTaskHtml(task, arrayDays)).join('')}

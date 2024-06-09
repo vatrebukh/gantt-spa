@@ -12,14 +12,14 @@ export default class Task {
 export function getTaskHtml(task, globalDays) {
     return `
         <div class="dashboard-task">
-            <div class="task-assignee task">${task.assignee}</div>
-            <div class="task-name task">${task.name}</div>
-            <div class="task-timeline">${getSpansHtml(task.startDate, task.endDate, globalDays)}</div>
-            <div class="task-controls">
+            <span class="task-assignee">${task.assignee}</span>
+            <span class="task-name">${task.name}</span>
+            <span class="task-timeline">${getSpansHtml(task.startDate, task.endDate, globalDays)}</span>
+            <span class="task-controls">
                 <img class="dnmark arrow" src="static/img/down.svg">
                 <img class="upmark arrow" src="static/img/up.svg">
                 <img class="rmmark" src="static/img/del.svg">
-            </div>
+            </span>
         </div>
     `;
 }
