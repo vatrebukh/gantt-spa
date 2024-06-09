@@ -10,6 +10,7 @@ export class Dashboard {
     }
 
     getDashboardHtml() {
+        let arrayDays = this.getFormattedDays(this.startDate, this.endDate);
         return `
             <div class="dashboard">
                 <h1>${this.name}</h1>
@@ -17,23 +18,25 @@ export class Dashboard {
                 <div class="dashboard-header">
                     <div class="task-assignee">Assigned to</div>
                     <div class="task-name">Task name</div>
-                    <div class="task-timeline">${this.getTimelineSpansHtml(this.startDate, this.endDate)}</div>
+                    <div class="task-timeline">
+                        ${arrayDays.map(day => `<span class="day-span">${day}</span>`).join('')}
+                    </div>
                     <div class="task-controls">Controls</div>
                 </div>
                 <div class="dashboard-tasks">
-                    ${this.tasks.map(task => getTaskHtml(task)).join('')}
+                    ${this.tasks.map(task => getTaskHtml(task, arrayDays)).join('')}
                 </div>
             </div>
         `;
     }
 
-    getTimelineSpansHtml(startDate, endDate) {
+    getFormattedDays(startDate, endDate) {
         let days = getDaysCount(startDate, endDate);
-        let spans = '';
+        let result = [];
         for (let i = 0; i < days; i++) {
-            spans = spans + `<span class="day-span">${formatDate(addDays(startDate, i))}</span>`;
+            result.push(formatDate(addDays(startDate, i)));
         }
     
-        return spans;
+        return result;
     }
 }

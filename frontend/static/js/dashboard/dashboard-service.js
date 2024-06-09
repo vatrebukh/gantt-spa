@@ -9,7 +9,7 @@ export class DashboardService {
         document.getElementById('root').innerHTML = board.getDashboardHtml();
         
         document.querySelectorAll('div.task-timeline').forEach(element => {
-            element.style.maxWidth = `${numberDays * 26 - 1}px`;
+            element.style.maxWidth = `${numberDays * 25 - 1}px`;
         })
     }
 
