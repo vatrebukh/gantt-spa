@@ -1,0 +1,166 @@
+body {
+    background-color: rgb(221, 234, 235);
+}
+
+h2 {
+    color: blue;
+}
+
+p {
+    color: red;
+}
+
+ul {
+    list-style-type: none;
+}
+
+div.dashboard {
+    margin: 0;
+    padding: 0;
+}
+
+div.dashboard-content {
+    margin: 20px;
+    padding: 0px;
+    position: relative;
+    z-index: 1;
+    border: solid 2px black;
+}
+
+
+div.dashboard-header {
+    position: relative;
+    display: flex;
+    margin: 0px;
+    padding: 0;
+    border-bottom: solid 1px;
+    background-color: rgb(103, 179, 123);
+}
+
+div.dashboard-header span {
+    padding: 2px 5px;
+}
+
+div.dashboard-header span.task-timeline {
+    padding: 0;
+}
+
+div span.task-timeline {
+    overflow-x: auto; 
+    overflow-y: hidden;
+}
+
+li span.task-timeline {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+span.task-timeline {
+    display: flex;
+    width: calc(100% - 24rem - 33px);
+    padding: 0px 0px;
+}
+
+div.dashboard-header span.day-span {
+    padding: 2px 0;
+}
+
+ul.dashboard-tasks {
+    margin: 0px;
+    padding: 0;
+}
+
+.dashboard-tasks li {
+    position: relative;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(166, 241, 186);
+    border-bottom: 1px solid grey;
+}
+
+.dashboard-tasks li:last-child {
+    border-bottom: none;
+}
+
+span.task-assignee, span.task-name { 
+    width: 6rem; 
+    border-right: solid 1px;
+    padding: 2px 5px;
+}
+
+span.task-name { 
+    width: 14rem; 
+}
+
+span.day-span {
+    text-align: center;
+    border-right: solid 1px gray;
+    min-width: 24px;
+    max-width: 24px;
+    font-size: 0.8rem;
+}
+
+li span.marked {   
+    background-color: green;
+}
+
+span.holiday {
+    color: red;
+}
+
+span.today {
+    background-color: gray;
+}
+
+
+
+/* controls column */
+
+.tasks li img {
+    text-decoration: none;
+    float: right;
+    position: absolute;
+}
+
+span.task-controls {   
+    position: absolute; 
+    width: 4rem; 
+    right: 0;
+    bottom: 0;
+    top: 0;
+    border-left: solid 1px;
+    padding: 2px 5px;
+}
+
+.dashboard-task li .upmark {
+    right: 3.2rem;
+}
+
+.dashboard-task li .dnmark {
+    right: 1.8rem;
+}
+
+.dashboard-task li .rmmark {
+    right: 0.4rem;
+}
+
+.dashboard-task li:last-child .dnmark {
+    display: none;
+}
+
+.dashboard-task li:first-child .upmark {
+    display: none;
+}
+
+.dashboard-task img {
+  width: 17px;
+  height: 17px; 
+}
+
+#add-task-input {
+   margin-left: 10px;
+   width: calc(10rem + 10px);
+}
+
+

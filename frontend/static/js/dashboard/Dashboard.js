@@ -24,9 +24,9 @@ export class Dashboard {
                         </span>
                         <span class="task-controls"><br>Controls</span>
                     </div>
-                    <div class="dashboard-tasks">
+                    <ul class="dashboard-tasks">
                         ${this.tasks.map(task => getTaskHtml(task, arrayDays)).join('')}
-                    </div>
+                    </ul>
                 </div>
             </div>
         `;

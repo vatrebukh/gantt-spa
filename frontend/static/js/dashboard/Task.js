@@ -11,7 +11,7 @@ export default class Task {
 
 export function getTaskHtml(task, globalDays) {
     return `
-        <div class="dashboard-task">
+        <li class="dashboard-task">
             <span class="task-assignee">${task.assignee}</span>
             <span class="task-name">${task.name}</span>
             <span class="task-timeline">${getSpansHtml(task.startDate, task.endDate, globalDays)}</span>
@@ -20,7 +20,7 @@ export function getTaskHtml(task, globalDays) {
                 <img class="upmark arrow" src="static/img/up.svg">
                 <img class="rmmark" src="static/img/del.svg">
             </span>
-        </div>
+        </li>
     `;
 }
 
@@ -29,7 +29,7 @@ function getSpansHtml(startDate, endDate, globalDays) {
     let spans = '';
     for (let i = 0; i < globalDays.length; i++) {
         let marked = taskDays.includes(globalDays[i]) ? 'marked' : '';
-        spans += `<span class="day-span ${marked}">&nbsp</span>`;
+        spans += `<span class="day-span ${marked}"></span>`;
     }
 
     return spans;
