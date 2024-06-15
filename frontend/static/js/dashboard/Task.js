@@ -1,6 +1,6 @@
 import { getFormattedDays  } from "../utility.js";
 
-export default class Task {
+export class Task {
     constructor(name, startDate, endDate, assignee) {
         this.name = name;
         this.startDate = startDate;

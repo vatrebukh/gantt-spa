@@ -30,9 +30,25 @@ export class Dashboard {
                         ${this.tasks.map(task => getTaskHtml(task, formattedDays)).join('')}
                     </ul>
                 </div>
+                <div id="new-task"></div>
+                <div>
+                    <button id="new-task-btn"><span><img src="static/img/plus.svg"></span><span>New task</span></button>
+                </div>
             </div>
         `;
     }
 
-
+    getNewTaskHtml() {
+        return `
+            <input type="text" id="new-task-assignee" class="task-assignee" placeholder="Assigned to"></input>
+            <input type="text" id="new-task-name" class="task-name" placeholder="Task name"></input>
+            <label for="task-timeline">Start date</label>
+            <input type="date" id="new-task-start" class="task-timeline" min="${this.startDate}"></input>
+            <label for="task-timeline">End date</label>
+            <input type="date" id="new-task-end" class="task-timeline" max="${this.endDate}"></input>
+            
+            <button id="add-task-btn"><span>Create task</span></button>
+        `;
+    }
 }
+

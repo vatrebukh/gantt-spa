@@ -7,21 +7,18 @@ ul {
 }
 
 div.dashboard {
-    margin: 0;
+    margin: 20px;
     padding: 0;
     min-width: 40rem;
 }
 
 div.dashboard-content {
-    margin: 20px;
+    margin: 10px 0px;
     padding: 0px;
-    position: relative;
-    z-index: 1;
     border: solid 2px black;
 }
 
 div.dashboard-header {
-    position: relative;
     display: flex;
     margin: 0px;
     padding: 0;
@@ -70,14 +67,14 @@ ul.dashboard-tasks {
     border-bottom: none;
 }
 
-span.task-assignee, span.task-name { 
+.task-assignee, .task-name { 
     width: 6rem;
     min-width: 6rem;
     border-right: solid 1px;
     padding: 2px 5px;
 }
 
-span.task-name { 
+.task-name { 
     width: 14rem;
     min-width: 14rem;
 }
@@ -140,8 +137,47 @@ span.task-controls {
     width: 17px;
 }
 
-#add-task-input {
-   margin-left: 10px;
-   width: calc(10rem + 10px);
+button#new-task-btn {
+    padding: 0px 5px;
+    width: fit-content;
+    text-align: left;
+    font-size: 1.0rem;
+    background-color: rgb(166, 241, 186);
+    border-color: rgb(166, 241, 186);
+}
+
+#new-task-btn img {
+    text-decoration: none;
+    margin-right: 5px;
+    width: 26px;
+}
+
+#new-task-btn span {
+    padding: 2px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+div#new-task {
+    display: none;
+    margin: 10px 0px;
+    padding: 5px 5px;
+    background-color: rgb(166, 241, 186);
+    width: fit-content;
+}
+
+#new-task input, #new-task label {
+    border: none;
+    margin: 5px;
+}
+
+button#add-task-btn {
+   display: block;
+   padding: 5px;
+   margin: 5px;
+   margin-top: 10px;
+   font-size: 1.0rem;
+   background-color: rgb(103, 179, 123);
+   border-color: rgb(103, 179, 123);
 }
 

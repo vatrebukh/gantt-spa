@@ -30,5 +30,5 @@ function viewHome() {
 }
 
 async function viewDashboard() {
-    await dashboardService.renderDashboard();
+    await dashboardService.loadDashboard();
 }
