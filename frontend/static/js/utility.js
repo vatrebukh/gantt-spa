@@ -20,3 +20,18 @@ export function getFormattedDays(startDate, endDate) {
 
     return result;
 }
+
+export function getTimelineDays(startDate, endDate) {
+    let days = getDaysCount(startDate, endDate);
+    let result = [];
+    for (let i = 0; i < days; i++) {
+        result.push(addDays(startDate, i));
+    }
+
+    return result;
+}
+
+export function isHoliday(date) {
+    let day = date.getDay();
+    return day === 0 || day === 6;
+}

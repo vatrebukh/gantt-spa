@@ -1,5 +1,5 @@
 import { getTaskHtml } from "./Task.js";
-import { getFormattedDays } from "../utility.js";
+import { formatDate, getTimelineDays, getFormattedDays, isHoliday } from "../utility.js";
 
 export class Dashboard {
     constructor(name, tasks, startDate, endDate) {
@@ -10,7 +10,9 @@ export class Dashboard {
     }
 
     getDashboardHtml() {
-        let arrayDays = getFormattedDays(this.startDate, this.endDate);
+        let arrayDays = getTimelineDays(this.startDate, this.endDate);
+        let formattedDays = getFormattedDays(this.startDate, this.endDate);
+        let today = new Date();
         return `
             <div class="dashboard">
                 <h1>${this.name}</h1>
@@ -20,16 +22,17 @@ export class Dashboard {
                         <span class="task-assignee">Assignee</span>
                         <span class="task-name">Task name</span>
                         <span class="task-timeline">
-                            ${arrayDays.map(day => `<span class="day-span">${day}</span>`).join('')}
+                            ${arrayDays.map(day => `<span class="day-span ${isHoliday(day) ? 'holiday' : ''} ${formatDate(day) == formatDate(today) ? 'today' : ''}">${formatDate(day)}</span>`).join('')}
                         </span>
                         <span class="task-controls">Controls</span>
                     </div>
                     <ul class="dashboard-tasks">
-                        ${this.tasks.map(task => getTaskHtml(task, arrayDays)).join('')}
+                        ${this.tasks.map(task => getTaskHtml(task, formattedDays)).join('')}
                     </ul>
                 </div>
             </div>
         `;
     }
+
 
 }
