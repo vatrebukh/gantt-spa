@@ -27,7 +27,6 @@ div.dashboard-content {
     border: solid 2px black;
 }
 
-
 div.dashboard-header {
     position: relative;
     display: flex;
@@ -77,6 +76,7 @@ ul.dashboard-tasks {
     padding: 0;
     background-color: rgb(166, 241, 186);
     border-bottom: 1px solid grey;
+    max-height: 22px;
 }
 
 .dashboard-tasks li:last-child {

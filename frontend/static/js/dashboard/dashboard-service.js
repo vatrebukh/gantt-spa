@@ -8,11 +8,22 @@ export class DashboardService {
         let numberDays = getDaysCount(board.startDate, board.endDate);
         document.getElementById('root').innerHTML = board.getDashboardHtml();
         
-        document.querySelectorAll('div.task-timeline').forEach(element => {
+        document.querySelectorAll('span.task-timeline').forEach(element => {
             element.style.maxWidth = `${numberDays * 25 + 1}px`;
         });
 
+        this.setBoardMaxWidth();
+
         this.assignControllEvents();
+    }
+
+    setBoardMaxWidth() {
+        let assigneeWidth = document.querySelector('span.task-assignee').offsetWidth;
+        let nameWidth = document.querySelector('span.task-name').offsetWidth;
+        let timelineWidth = document.querySelector('span.task-timeline').offsetWidth;
+        let controlsWidth = document.querySelector('span.task-controls').offsetWidth;
+
+        document.querySelector('div.dashboard-content').style.maxWidth = assigneeWidth + nameWidth + timelineWidth + controlsWidth - 4 + 'px';
     }
 
     assignControllEvents() { 
