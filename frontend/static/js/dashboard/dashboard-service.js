@@ -14,8 +14,9 @@ export class DashboardService {
         });
 
         this.setBoardMaxWidth(timeSpanWidth);
-
         this.assignControllEvents();
+
+        document.querySelector('div.dashboard-header span.task-timeline').addEventListener('scroll', this.syncScroll);
     }
 
     setBoardMaxWidth(timeSpanWidth) {
@@ -42,10 +43,19 @@ export class DashboardService {
         });
     }
 
+    syncScroll() {
+        const masterSpan = document.querySelector('div.dashboard-header span.task-timeline');
+        const taskSpans = document.querySelectorAll('ul.dashboard-tasks span.task-timeline');
+        taskSpans.forEach((span) => {
+            span.scrollLeft = masterSpan.scrollLeft;
+          });
+      }
+
     moveDown(parent) {
         let next = parent.nextElementSibling;
         if (next) {
             parent.parentElement.insertBefore(next, parent);
+            this.syncScroll();
         }
     }
 
@@ -53,6 +63,7 @@ export class DashboardService {
         let prev = parent.previousElementSibling;
         if (prev) {
             parent.parentElement.insertBefore(parent, prev);
+            this.syncScroll();
         }
     }
 
