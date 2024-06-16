@@ -1,6 +1,6 @@
 import { Dashboard } from "./Dashboard.js";
-import { Task } from "./Task.js";
-import { getDaysCount } from "../utility.js";
+import { Task, getTaskHtml } from "./Task.js";
+import { getDaysCount, getFormattedDays } from "../utility.js";
 
 export class DashboardService {
     
@@ -32,25 +32,53 @@ export class DashboardService {
     addNewTaskEvent(board) {
         let newTaskBtn = document.getElementById('new-task-btn');
         newTaskBtn.addEventListener('click', () => {
-            let newTaskEl = document.getElementById('new-task')
+            let newTaskEl = document.getElementById('new-task-plc');
             newTaskEl.innerHTML = board.getNewTaskHtml();
-            newTaskEl.style.display = 'block';
             newTaskBtn.style.display = 'none';
 
             document.getElementById('add-task-btn').addEventListener('click', () => {
-                let assignee = document.getElementById('new-task-assignee').value;
-                let name = document.getElementById('new-task-name').value;
-                let start = document.getElementById('new-task-start').value;
-                let end = document.getElementById('new-task-end').value;
-                let newTask = new Task(name, start, end, assignee);
-                board.tasks.push(newTask);
-                newTaskBtn.style.display = 'block';
+                this.appendNewTask(board);
                 newTaskEl.innerHTML = '';
-                newTaskEl.style.display = 'none';
+                newTaskBtn.style.display = 'block';
+            });
 
-                this.renderDashboard(board);
+            document.getElementById('cncl-task-btn').addEventListener('click', () => {
+                newTaskEl.innerHTML = '';
+                newTaskBtn.style.display = 'block';
             });
         });
+    }
+
+    appendNewTask(board) {
+        let assignee = document.getElementById('new-task-assignee').value;
+        let name = document.getElementById('new-task-name').value;
+        let start = document.getElementById('new-task-start').value;
+        let end = document.getElementById('new-task-end').value;
+        let newTask = new Task(name, start, end, assignee);
+        if (!assignee || !name || !start || !end) {
+            console.warn('All fields are required');
+            return;
+        }
+        
+        let newTaskHtml = getTaskHtml(newTask, getFormattedDays(board.startDate, board.endDate));
+        document.querySelector('ul.dashboard-tasks').insertAdjacentHTML('beforeend', newTaskHtml);
+        this.assignControllEventsToTask();
+    }
+
+    assignControllEventsToTask() { 
+        let rmIcon = this.querySelectorLast('img.rmmark');
+        rmIcon.addEventListener('click', () => rmIcon.parentElement.parentElement.parentElement.remove());
+
+        let dnIcon = this.querySelectorLast('img.dnmark');
+        dnIcon.addEventListener('click', () => this.moveDown(dnIcon.parentElement.parentElement.parentElement));
+
+        let upIcon = this.querySelectorLast('img.upmark');
+        upIcon.addEventListener('click', () => this.moveUp(upIcon.parentElement.parentElement.parentElement));
+    }
+
+    querySelectorLast(prop) {
+        let arr = document.querySelectorAll(prop);
+        return arr[arr.length-1];
     }
 
     assignControllEvents() { 

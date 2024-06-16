@@ -16,9 +16,9 @@ export function getTaskHtml(task, globalDays) {
             <span class="task-name">${task.name}</span>
             <span class="task-timeline">${getSpansHtml(task.startDate, task.endDate, globalDays)}</span>
             <span class="task-controls">
-                <span class="img-span"><img class="dnmark arrow" src="static/img/down.svg"></span>
-                <span class="img-span"><img class="upmark arrow" src="static/img/up.svg"></span>
-                <span class="img-span"><img class="rmmark" src="static/img/del.svg"></span>
+                <span><img class="dnmark" src="static/img/down.svg"></span>
+                <span><img class="upmark" src="static/img/up.svg"></span>
+                <span><img class="rmmark" src="static/img/del.svg"></span>
             </span>
         </li>
     `;

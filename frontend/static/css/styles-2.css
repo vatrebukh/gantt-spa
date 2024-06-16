@@ -137,6 +137,9 @@ span.task-controls {
     width: 17px;
 }
 
+
+/* add new task */
+
 button#new-task-btn {
     padding: 0px 5px;
     width: fit-content;
@@ -159,7 +162,6 @@ button#new-task-btn {
 }
 
 div#new-task {
-    display: none;
     margin: 10px 0px;
     padding: 5px 5px;
     background-color: rgb(166, 241, 186);
@@ -171,13 +173,13 @@ div#new-task {
     margin: 5px;
 }
 
-button#add-task-btn {
-   display: block;
+button.add-task-btn {
+   display: inline block;
    padding: 5px;
    margin: 5px;
    margin-top: 10px;
    font-size: 1.0rem;
+   width: 6rem;
    background-color: rgb(103, 179, 123);
    border-color: rgb(103, 179, 123);
 }
-
