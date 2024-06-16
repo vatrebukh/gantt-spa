@@ -15,6 +15,7 @@ export class DashboardService {
         this.setBoardMaxWidth(board);
         this.assignControllEvents();
         this.addNewTaskEvent(board);
+        this.assignEditEvents(board);
     }
 
     setBoardMaxWidth(board) {
@@ -27,6 +28,35 @@ export class DashboardService {
         let controlsWidth = document.querySelector('span.task-controls').offsetWidth;
 
         document.querySelector('div.dashboard-content').style.maxWidth = assigneeWidth + nameWidth + timeSpanWidth + controlsWidth - 4 + 'px';
+    }
+
+    assignEditEvents(board) {
+        document.querySelectorAll('li.dashboard-task').forEach(element => this.assignEditEvent(board, element));
+    }
+
+    assignEditEvent(board, element) {
+        element.addEventListener('dblclick', () => {
+            let newTaskBtn = document.getElementById('new-task-btn');
+            newTaskBtn.style.display = 'none';
+            let newTaskEl = document.getElementById('new-task-plc');
+            newTaskEl.innerHTML = board.getNewTaskHtml();
+
+            document.getElementById('new-task-assignee').value = element.querySelector('span.task-assignee').textContent;
+            document.getElementById('new-task-name').value = element.querySelector('span.task-name').textContent;
+
+            document.getElementById('add-task-btn').textContent = 'Save task';
+            document.getElementById('add-task-btn').addEventListener('click', () => {
+                element.querySelector('span.task-assignee').textContent = document.getElementById('new-task-assignee').value;
+                element.querySelector('span.task-name').textContent = document.getElementById('new-task-name').value ;
+                newTaskEl.innerHTML = '';
+                newTaskBtn.style.display = 'block';
+            });
+
+            document.getElementById('cncl-task-btn').addEventListener('click', () => {
+                newTaskEl.innerHTML = '';
+                newTaskBtn.style.display = 'block';
+            });
+        });
     }
 
     addNewTaskEvent(board) {
@@ -63,6 +93,8 @@ export class DashboardService {
         let newTaskHtml = getTaskHtml(newTask, getFormattedDays(board.startDate, board.endDate));
         document.querySelector('ul.dashboard-tasks').insertAdjacentHTML('beforeend', newTaskHtml);
         this.assignControllEventsToTask();
+        let element = this.querySelectorLast('li.dashboard-task');
+        this.assignEditEvent(board, element);
     }
 
     assignControllEventsToTask() { 
