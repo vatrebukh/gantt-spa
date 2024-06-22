@@ -38,6 +38,13 @@ export class Dashboard {
         `;
     }
 
+    getTaskListHtml() {
+        let formattedDays = getFormattedDays(this.startDate, this.endDate);
+        return `
+            ${this.tasks.map(task => getTaskHtml(task, formattedDays)).join('')}
+        `;
+    }
+
     getNewTaskHtml() {
         return `
             <div id="new-task">
@@ -54,6 +61,20 @@ export class Dashboard {
                 </div>
             </div>
         `;
+    }
+
+    moveDown(name) {
+        let task = this.tasks.find(task => task.name == name);
+        let idx = this.tasks.indexOf(task);
+        this.tasks[idx] = this.tasks[idx + 1];
+        this.tasks[idx + 1] = task;
+    }
+
+    moveUp(name) {
+        let task = this.tasks.find(task => task.name == name);
+        let idx = this.tasks.indexOf(task);
+        this.tasks[idx] = this.tasks[idx - 1];
+        this.tasks[idx - 1] = task;
     }
 }
 

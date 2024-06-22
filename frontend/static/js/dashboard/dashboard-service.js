@@ -1,6 +1,6 @@
 import { Dashboard } from "./Dashboard.js";
-import { Task, getTaskHtml } from "./Task.js";
-import { getDaysCount, getFormattedDays } from "../utility.js";
+import { Task } from "./Task.js";
+import { getDaysCount } from "../utility.js";
 
 export class DashboardService {
     
@@ -13,16 +13,21 @@ export class DashboardService {
         document.getElementById('root').innerHTML = board.getDashboardHtml();
         document.querySelector('div.dashboard-header span.task-timeline').addEventListener('scroll', this.syncScroll);
         this.setBoardMaxWidth(board);
-        this.assignControllEvents();
-        this.addNewTaskEvent(board);
+        this.assignControllEvents(board);
+        this.assignCreateTaskEvent(board);
         this.assignEditEvents(board);
+    }
+
+    renderTaskList(board) {
+        document.querySelector('ul.dashboard-tasks').innerHTML = board.getTaskListHtml();
+        this.assignControllEvents(board);
+        this.assignEditEvents(board);
+        this.syncScroll();
     }
 
     setBoardMaxWidth(board) {
         let timeSpanWidth = getDaysCount(board.startDate, board.endDate) * 25 + 1;
-        document.querySelectorAll('span.task-timeline').forEach(element => {
-            element.style.maxWidth = `${timeSpanWidth}px`;
-        });
+        document.querySelectorAll('span.task-timeline').forEach(element => element.style.maxWidth = `${timeSpanWidth}px`);
         let assigneeWidth = document.querySelector('span.task-assignee').offsetWidth;
         let nameWidth = document.querySelector('span.task-name').offsetWidth;
         let controlsWidth = document.querySelector('span.task-controls').offsetWidth;
@@ -41,117 +46,88 @@ export class DashboardService {
             let newTaskEl = document.getElementById('new-task-plc');
             newTaskEl.innerHTML = board.getNewTaskHtml();
 
-            document.getElementById('new-task-assignee').value = element.querySelector('span.task-assignee').textContent;
-            document.getElementById('new-task-name').value = element.querySelector('span.task-name').textContent;
+            let edited = board.tasks.filter(task => task.name == element.querySelector('span.task-name').textContent)[0];
+            this.populateEditTask(edited);
 
             document.getElementById('add-task-btn').textContent = 'Save task';
-            document.getElementById('add-task-btn').addEventListener('click', () => {
-                element.querySelector('span.task-assignee').textContent = document.getElementById('new-task-assignee').value;
-                element.querySelector('span.task-name').textContent = document.getElementById('new-task-name').value ;
-                newTaskEl.innerHTML = '';
-                newTaskBtn.style.display = 'block';
-            });
-
-            document.getElementById('cncl-task-btn').addEventListener('click', () => {
-                newTaskEl.innerHTML = '';
-                newTaskBtn.style.display = 'block';
-            });
+            document.getElementById('add-task-btn').addEventListener('click', () => this.updateTask(edited, board));
+            document.getElementById('cncl-task-btn').addEventListener('click', () => this.hideNewTaskBlock());
         });
     }
 
-    addNewTaskEvent(board) {
+    populateEditTask(edited) {  
+        document.getElementById('new-task-assignee').value = edited.assignee;
+        document.getElementById('new-task-name').value = edited.name;
+        document.getElementById('new-task-start').value = edited.startDate;
+        document.getElementById('new-task-end').value = edited.endDate;
+    }
+
+    updateTask(edited, board) {
+        this.populateTask(edited);
+        this.hideNewTaskBlock();
+        this.renderTaskList(board);
+    }
+
+    assignCreateTaskEvent(board) {
         let newTaskBtn = document.getElementById('new-task-btn');
         newTaskBtn.addEventListener('click', () => {
-            let newTaskEl = document.getElementById('new-task-plc');
-            newTaskEl.innerHTML = board.getNewTaskHtml();
+            document.getElementById('new-task-plc').innerHTML = board.getNewTaskHtml();
             newTaskBtn.style.display = 'none';
-
-            document.getElementById('add-task-btn').addEventListener('click', () => {
-                this.appendNewTask(board);
-                newTaskEl.innerHTML = '';
-                newTaskBtn.style.display = 'block';
-            });
-
-            document.getElementById('cncl-task-btn').addEventListener('click', () => {
-                newTaskEl.innerHTML = '';
-                newTaskBtn.style.display = 'block';
-            });
+            document.getElementById('add-task-btn').addEventListener('click', () => this.addNewTask(board));
+            document.getElementById('cncl-task-btn').addEventListener('click', () => this.hideNewTaskBlock());
         });
     }
 
-    appendNewTask(board) {
-        let assignee = document.getElementById('new-task-assignee').value;
-        let name = document.getElementById('new-task-name').value;
-        let start = document.getElementById('new-task-start').value;
-        let end = document.getElementById('new-task-end').value;
-        let newTask = new Task(name, start, end, assignee);
-        if (!assignee || !name || !start || !end) {
-            console.warn('All fields are required');
+    addNewTask(board) {
+        let newTask = new Task();
+        this.populateTask(newTask);
+        if (!newTask.name || !newTask.startDate || !newTask.endDate) {
+            console.warn('Mandatory fields required');
             return;
         }
-        
-        let newTaskHtml = getTaskHtml(newTask, getFormattedDays(board.startDate, board.endDate));
-        document.querySelector('ul.dashboard-tasks').insertAdjacentHTML('beforeend', newTaskHtml);
-        this.assignControllEventsToTask();
-        let element = this.querySelectorLast('li.dashboard-task');
-        this.assignEditEvent(board, element);
+        board.tasks.push(newTask);
+        this.renderTaskList(board);
+        this.hideNewTaskBlock();
     }
 
-    assignControllEventsToTask() { 
-        let rmIcon = this.querySelectorLast('img.rmmark');
-        rmIcon.addEventListener('click', () => rmIcon.parentElement.parentElement.parentElement.remove());
-
-        let dnIcon = this.querySelectorLast('img.dnmark');
-        dnIcon.addEventListener('click', () => this.moveDown(dnIcon.parentElement.parentElement.parentElement));
-
-        let upIcon = this.querySelectorLast('img.upmark');
-        upIcon.addEventListener('click', () => this.moveUp(upIcon.parentElement.parentElement.parentElement));
+    hideNewTaskBlock() {
+        document.getElementById('new-task-plc').innerHTML = '';
+        document.getElementById('new-task-btn').style.display = 'block';
     }
 
-    querySelectorLast(prop) {
-        let arr = document.querySelectorAll(prop);
-        return arr[arr.length-1];
+    populateTask(task) {
+        task.assignee = document.getElementById('new-task-assignee').value;
+        task.name = document.getElementById('new-task-name').value ;
+        task.startDate = document.getElementById('new-task-start').value;
+        task.endDate = document.getElementById('new-task-end').value;
     }
 
-    assignControllEvents() { 
-        document.querySelectorAll('img.rmmark').forEach(element => {
-            element.addEventListener('click', () => {
-                element.parentElement.parentElement.parentElement.remove();
-            });
-        });
+    assignControllEvents(board) { 
+        document.querySelectorAll('img.rmmark').forEach(element => element.addEventListener('click', () => this.removeTask(board, element)));
+        document.querySelectorAll('img.dnmark').forEach(element => element.addEventListener('click', () => this.moveUp(board, element)));
+        document.querySelectorAll('img.upmark').forEach(element => element.addEventListener('click', () => this.moveDown(board, element)));
+    }
 
-        document.querySelectorAll('img.dnmark').forEach(element => {
-            element.addEventListener('click', () => this.moveDown(element.parentElement.parentElement.parentElement));
-        });
+    removeTask(board, element) {
+        board.tasks = board.tasks.filter(task => task.name != element.parentElement.parentElement.parentElement.querySelector('span.task-name').textContent);
+        this.renderTaskList(board);
+    }
 
-        document.querySelectorAll('img.upmark').forEach(element => {
-            element.addEventListener('click', () => this.moveUp(element.parentElement.parentElement.parentElement));
-        });
+    moveUp(board, element) {
+        board.moveDown(element.parentElement.parentElement.parentElement.querySelector('span.task-name').textContent);
+        this.renderTaskList(board);
+    }
+
+    moveDown(board, element) {
+        board.moveUp(element.parentElement.parentElement.parentElement.querySelector('span.task-name').textContent);
+        this.renderTaskList(board);
     }
 
     syncScroll() {
         const masterSpan = document.querySelector('div.dashboard-header span.task-timeline');
         const taskSpans = document.querySelectorAll('ul.dashboard-tasks span.task-timeline');
-        taskSpans.forEach((span) => {
-            span.scrollLeft = masterSpan.scrollLeft;
-          });
+        taskSpans.forEach((span) => span.scrollLeft = masterSpan.scrollLeft);
       }
-
-    moveDown(parent) {
-        let next = parent.nextElementSibling;
-        if (next) {
-            parent.parentElement.insertBefore(next, parent);
-            this.syncScroll();
-        }
-    }
-
-    moveUp(parent) {
-        let prev = parent.previousElementSibling;
-        if (prev) {
-            parent.parentElement.insertBefore(parent, prev);
-            this.syncScroll();
-        }
-    }
 
     async getDashboard() {
         return fetch('/static/data/board-one.json')
