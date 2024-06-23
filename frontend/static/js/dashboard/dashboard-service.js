@@ -4,7 +4,7 @@ import { getDaysCount } from "../utility.js";
 
 export class DashboardService {
     
-    async loadDashboard() {
+    async loadDashboard(args) {
         let board = await this.getDashboardFromLocalStorage();
         this.renderDashboard(board);
     }

@@ -31,7 +31,7 @@ export class Dashboard {
                     </ul>
                 </div>
                 <div>
-                    <button id="new-task-btn"><span><img src="static/img/plus.svg"></span><span>New task</span></button>
+                    <button id="new-task-btn"><span><img src="/static/img/plus.svg"></span><span>New task</span></button>
                 </div>
                 <div id="new-task-plc"></div>
             </div>
