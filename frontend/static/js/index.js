@@ -1,71 +1,50 @@
 import { DashboardService } from "./dashboard/dashboard-service.js";
+import { Router } from "./Router.js";
+import { getNavHtml } from "./home-service.js";
 
 const dashboardService = new DashboardService();
 
 const routes = [
     { path: '/', view: () => viewHome() },
     { path: '/dashboard', view: () => viewDashboard() },
-    { path: '/dashboard/:id', view: () => viewDashboard() },
+    { path: '/dashboard/:id', view: (args) => viewDashboard(args) },
+    { path: '/teams', view: () => viewTeams() },
+    { path: '/teams/:id', view: (args) => viewTeams(args) },
 ];
 
-const route = (event) => {
-    event = event || window.event;
-    event.preventDefault();
+const router = new Router(routes);
 
-    let navTo = findRoute(location.pathname) || routes[0];
-    navigate(navTo);
+const navigate = () => {
+    let { route, params } = router.findRoute(location.pathname);
+    route.view(params);
 };
 
-const params = {};
-
-function findRoute(url) {
-    if (url.length > 1 && url.endsWith('/')) {
-        url = url.replace(/\/$/, '');
-    }
-    return routes.find(route => matches(route.path, url));
-}
-
-function matches(route, url) {
-    let routeSegments = route.split('/').slice(1);
-    let urlSegments = url.split('/').slice(1);
-
-    if (routeSegments.length !== urlSegments.length) {
-        return false;
-    }
-
-    const match = routeSegments.every((segment, i) => segment === urlSegments[i] || segment.startsWith(':'));
-
-    if (match) {
-        routeSegments.forEach((segment, i) => {
-            if (segment.startsWith(':')) {
-                params[segment.slice(1)] = urlSegments[i];
-            }
-        });
-    }
-
-    return match;
-}
-
-function navigate({path, view}) {
-    let newPath = path.split('/').map(segment => {
-        if (segment.startsWith(':')) {
-            return params[segment.slice(1)];
-        } else {
-            return segment;
-        }
-    }).join('/');
-    history.pushState({}, "", newPath);
-    view();
-}
+window.addEventListener("popstate", navigate);
 
 document.addEventListener('DOMContentLoaded', () => {
-    route();
+    document.body.addEventListener("click", e => {
+        if (e.target.matches("[data-link]")) {
+            e.preventDefault();
+            history.pushState(null, null, e.target.href);
+            navigate();
+        }
+    });
+
+    navigate();
 });
 
 function viewHome() {
-    document.getElementById('root').innerHTML = 'Home';
+    document.getElementById('root').innerHTML = getNavHtml();
 }
 
-async function viewDashboard() {
+async function viewDashboard(params) {
     await dashboardService.loadDashboard(params);
+}
+
+async function viewTeams(params) {
+    if (params && params.id) {
+        document.getElementById('root').innerHTML = `Team ${params.id}`;
+    } else {
+        document.getElementById('root').innerHTML = 'Teams';
+    }
 }
