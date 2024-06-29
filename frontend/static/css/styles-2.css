@@ -6,6 +6,10 @@ ul {
     list-style-type: none;
 }
 
+#nav {
+    margin-bottom: 20px;
+}
+
 div.dashboard {
     margin: 20px;
     padding: 0;
@@ -182,4 +186,33 @@ button.add-task-btn {
    width: 6rem;
    background-color: rgb(103, 179, 123);
    border-color: rgb(103, 179, 123);
+}
+
+
+/* board info */
+
+div.board-info {
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 4px;
+    min-width: 300px;
+}
+
+.board-info div {
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+}
+
+div.status-active {
+    background-color: lightgreen;
+}
+
+div.status-completed {
+    background-color: lightslategrey;
+}
+
+div.status-planned {
+    background-color: orange;
 }

@@ -5,7 +5,7 @@ import { getDaysCount } from "../utility.js";
 export class DashboardService {
     
     async loadDashboard(args) {
-        let board = await this.getDashboardFromLocalStorage();
+        let board = await this.getDashboardFromLocalStorage(args.id);
         this.renderDashboard(board);
     }
 
@@ -130,18 +130,18 @@ export class DashboardService {
         taskSpans.forEach((span) => span.scrollLeft = masterSpan.scrollLeft);
       }
 
-    async getDashboard() {
-        return fetch('/static/data/board-one.json')
+    async getDashboardFromLocalStorage(id) {
+        let data = JSON.parse(localStorage.getItem(`dashboard-${id}`));
+        return data ? new Dashboard(data) : this.getDashboard(id);
+    }
+
+    async getDashboard(id) {
+        return fetch(`/static/data/board-${id}.json`)
             .then(response => response.json())
             .then(data => new Dashboard(data));
     }
 
-    async getDashboardFromLocalStorage() {
-        let data = JSON.parse(localStorage.getItem('dashboard'));
-        return data ? new Dashboard(data) : this.getDashboard();
-    }
-
     saveDashboardToLocalStorage(board) {
-        localStorage.setItem('dashboard', JSON.stringify(board));
+        localStorage.setItem(`dashboard-${board.id}`, JSON.stringify(board));
     }   
 }

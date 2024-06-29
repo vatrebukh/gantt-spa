@@ -2,7 +2,8 @@ import { getTaskHtml } from "./Task.js";
 import { formatDate, getTimelineDays, getFormattedDays, isHoliday } from "../utility.js";
 
 export class Dashboard {
-    constructor({name, tasks, startDate, endDate}) {
+    constructor({id, name, tasks, startDate, endDate}) {
+        this.id = id;
         this.name = name;
         this.tasks = tasks;
         this.startDate = startDate;

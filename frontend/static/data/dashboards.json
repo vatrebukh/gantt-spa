@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1001,
+        "name": "Team zero: gantt chart",
+        "startDate": "2024-06-07",
+        "endDate": "2024-06-30",
+        "status": "completed"
+    },
+    {
+        "id": 1002,
+        "name": "Team zero: gantt chart - July",
+        "startDate": "2024-07-01",
+        "endDate": "2024-07-31",
+        "status": "active"
+    },
+    {
+        "id": 1003,
+        "name": "Team zero: gantt chart - August",
+        "startDate": "2024-08-01",
+        "endDate": "2024-08-31",
+        "status": "planned"
+    }
+]
