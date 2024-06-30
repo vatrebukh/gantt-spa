@@ -11,6 +11,20 @@ export class Dashboard {
         this.status = status;
     }
 
+    moveDown(name) {
+        let task = this.tasks.find(task => task.name == name);
+        let idx = this.tasks.indexOf(task);
+        this.tasks[idx] = this.tasks[idx + 1];
+        this.tasks[idx + 1] = task;
+    }
+
+    moveUp(name) {
+        let task = this.tasks.find(task => task.name == name);
+        let idx = this.tasks.indexOf(task);
+        this.tasks[idx] = this.tasks[idx - 1];
+        this.tasks[idx - 1] = task;
+    }
+
     getDashboardHtml() {
         let arrayDays = getTimelineDays(this.startDate, this.endDate);
         let formattedDays = getFormattedDays(this.startDate, this.endDate);
@@ -43,9 +57,7 @@ export class Dashboard {
 
     getTaskListHtml() {
         let formattedDays = getFormattedDays(this.startDate, this.endDate);
-        return `
-            ${this.tasks.map(task => getTaskHtml(task, formattedDays)).join('')}
-        `;
+        return this.tasks.map(task => getTaskHtml(task, formattedDays)).join('');
     }
 
     getNewTaskHtml() {
@@ -66,18 +78,40 @@ export class Dashboard {
         `;
     }
 
-    moveDown(name) {
-        let task = this.tasks.find(task => task.name == name);
-        let idx = this.tasks.indexOf(task);
-        this.tasks[idx] = this.tasks[idx + 1];
-        this.tasks[idx + 1] = task;
+    getBoardInfoHtml() {
+        if (this.id) {
+            return this.getFullBoardInfoHtml();
+        } else {
+            return this.getEmptyBoardInfoHtml();
+        }
     }
 
-    moveUp(name) {
-        let task = this.tasks.find(task => task.name == name);
-        let idx = this.tasks.indexOf(task);
-        this.tasks[idx] = this.tasks[idx - 1];
-        this.tasks[idx - 1] = task;
+    getFullBoardInfoHtml() {
+        return `
+            <div class="board-info status-${this.status}">
+                <label hidden>${this.id}</label>
+                <div>${this.name}</div>
+                <div>${this.startDate} - ${this.endDate}</div>
+                <div>${this.status}</div>
+            </div>
+        `;
+    }
+
+    getEmptyBoardInfoHtml() {
+        return `
+            <div id="new-board">
+                <input type="text" id="new-board-name" placeholder="Dashboard name"></input>
+                <label for="board-start-date">Start date</label>
+                <input type="date" id="new-board-start" class="board-start-date"></input>
+                <label for="board-end-date">End date</label>
+                <input type="date" id="new-board-end" class="board-end-date"></input>
+
+                <div>                
+                    <button class="add-board-btn" id="add-board-btn"><span>Create</span></button>
+                    <button class="add-board-btn" id="cncl-board-btn"><span>Cancel</span></button>
+                </div>
+            </div>
+        `;
     }
 }
 

@@ -49,7 +49,7 @@ async function viewDashboards() {
 }
 
 function createDashboard() {
-    dashboardManagementService.createDashboard();
+    dashboardService.createDashboard();
 }
 
 async function viewTeams(params) {

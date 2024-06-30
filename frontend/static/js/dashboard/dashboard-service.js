@@ -6,7 +6,7 @@ import { navigate } from "../index.js";
 export class DashboardService {
     
     async loadDashboard(args) {
-        let board = await this.getDashboardFromLocalStorage(args.id);
+        let board = await this.findDashboard(args.id);
         this.renderDashboard(board);
     }
 
@@ -16,12 +16,11 @@ export class DashboardService {
         this.setBoardMaxWidth(board);
         this.assignControllEvents(board);
         this.assignCreateTaskEvent(board);
-        this.assignChnageStatusEvent(board);
+        this.assignChangeStatusEvent(board);
         this.assignEditEvents(board);
     }
 
     renderTaskList(board) {
-        this.saveDashboardToLocalStorage(board);
         document.querySelector('ul.dashboard-tasks').innerHTML = board.getTaskListHtml();
         this.assignControllEvents(board);
         this.assignEditEvents(board);
@@ -65,9 +64,10 @@ export class DashboardService {
         document.getElementById('new-task-end').value = edited.endDate;
     }
 
-    updateTask(edited, board) {
+    async updateTask(edited, board) {
         this.populateTask(edited);
         this.hideNewTaskBlock();
+        await this.saveDashboard(board);
         this.renderTaskList(board);
     }
 
@@ -81,25 +81,27 @@ export class DashboardService {
         });
     }
 
-    assignChnageStatusEvent(board) {
-        document.getElementById('chng-sts-btn').addEventListener('click', () => {
+    assignChangeStatusEvent(board) {
+        document.getElementById('chng-sts-btn').addEventListener('click', async () => {
             if (board.status == 'completed') {
                 board.status = 'deleted'; //todo: remove board from dashboard list
+                await this.saveDashboard(board);
                 history.pushState(null, null, `/dashboards`);
                 navigate();
+                return;
             }
 
             if (board.status == 'new') {
                 board.status = 'active';
             } else if (board.status == 'active') {
                 board.status = 'completed';
-            } 
-            this.saveDashboardToLocalStorage(board);
+            }
+            await this.saveDashboard(board);
             this.renderDashboard(board);
         });
     }
 
-    addNewTask(board) {
+    async addNewTask(board) {
         let newTask = new Task();
         this.populateTask(newTask);
         if (!newTask.name || !newTask.startDate || !newTask.endDate) {
@@ -107,8 +109,9 @@ export class DashboardService {
             return;
         }
         board.tasks.push(newTask);
-        this.renderTaskList(board);
+        await this.saveDashboard(board);  //todo: save on click?
         this.hideNewTaskBlock();
+        this.renderTaskList(board);
     }
 
     hideNewTaskBlock() {
@@ -129,18 +132,21 @@ export class DashboardService {
         document.querySelectorAll('img.upmark').forEach(element => element.addEventListener('click', () => this.moveDown(board, element)));
     }
 
-    removeTask(board, element) {
+    async removeTask(board, element) {
         board.tasks = board.tasks.filter(task => task.name != element.parentElement.parentElement.parentElement.querySelector('span.task-name').textContent);
+        await this.saveDashboard(board);  //todo: save on click?
         this.renderTaskList(board);
     }
 
-    moveUp(board, element) {
+    async moveUp(board, element) {
         board.moveDown(element.parentElement.parentElement.parentElement.querySelector('span.task-name').textContent);
+        await this.saveDashboard(board);  //todo: save on click?
         this.renderTaskList(board);
     }
 
-    moveDown(board, element) {
+    async moveDown(board, element) {
         board.moveUp(element.parentElement.parentElement.parentElement.querySelector('span.task-name').textContent);
+        await this.saveDashboard(board);  //todo: save on click?
         this.renderTaskList(board);
     }
 
@@ -148,20 +154,49 @@ export class DashboardService {
         const masterSpan = document.querySelector('div.dashboard-header span.task-timeline');
         const taskSpans = document.querySelectorAll('ul.dashboard-tasks span.task-timeline');
         taskSpans.forEach((span) => span.scrollLeft = masterSpan.scrollLeft);
-      }
-
-    async getDashboardFromLocalStorage(id) {
-        let data = JSON.parse(localStorage.getItem(`dashboard-${id}`));
-        return data ? new Dashboard(data) : this.getDashboard(id);
     }
 
-    async getDashboard(id) {
-        return fetch(`/static/data/board-${id}.json`)
-            .then(response => response.json())
-            .then(data => new Dashboard(data));
+    createDashboard() {
+        let newBoard = new Dashboard({})
+        document.getElementById('root').innerHTML = newBoard.getBoardInfoHtml();
+        document.getElementById('add-board-btn').addEventListener('click', async e => {
+            newBoard.name = document.getElementById('new-board-name').value;
+            newBoard.startDate = document.getElementById('new-board-start').value;
+            newBoard.endDate = document.getElementById('new-board-end').value;
+            newBoard.id = await this.generateBoardId();
+            newBoard.status = 'new';
+            newBoard.tasks = [];
+            await this.saveDashboard(newBoard);
+            history.pushState(null, null, `/dashboard/${newBoard.id}`);
+            navigate();
+        });
+        document.getElementById('cncl-board-btn').addEventListener('click', e => {
+            history.pushState(null, null, '/');
+            navigate();
+        });
     }
 
-    saveDashboardToLocalStorage(board) {
-        localStorage.setItem(`dashboard-${board.id}`, JSON.stringify(board));
-    }   
+    async findDashboard(id) {
+        let data = await this.getDashboards();
+        return Array.from(data).filter(el => el.id == id).map(el => new Dashboard(el))[0];
+    }
+
+    async saveDashboard(board) {
+        let boards = Array.from(await this.getDashboards()).filter(el => el.id != board.id);
+        boards.push(board);
+        localStorage.setItem('dashboards', JSON.stringify(boards));
+    }
+
+    async generateBoardId() {
+        let ids = Array.from(await this.getDashboards()).filter(board => board && board.id).map(board => board.id);
+        let id = 1001; 
+        while (ids.includes(id)) {
+            id++;
+        }
+        return id;
+    }
+
+    async getDashboards() {
+        return JSON.parse(localStorage.getItem('dashboards')) || await fetch('/static/data/dashboards.json').then(response => response.json());
+    }
 }
