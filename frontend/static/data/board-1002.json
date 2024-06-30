@@ -1,6 +1,7 @@
 {
     "id": 1002,
     "name": "Team zero: gantt chart - July",
+    "status": "active",
     "tasks": [
         {
             "name": "Display list of dashboards",

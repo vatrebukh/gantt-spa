@@ -144,7 +144,7 @@ span.task-controls {
 
 /* add new task */
 
-button#new-task-btn {
+button.board-img-btn {
     padding: 0px 5px;
     width: fit-content;
     text-align: left;
@@ -153,13 +153,13 @@ button#new-task-btn {
     border-color: rgb(166, 241, 186);
 }
 
-#new-task-btn img {
+.board-img-btn img {
     text-decoration: none;
     margin-right: 5px;
     width: 26px;
 }
 
-#new-task-btn span {
+.board-img-btn span {
     padding: 2px;
     display: inline-block;
     vertical-align: middle;
@@ -213,12 +213,8 @@ div.status-completed {
     background-color: lightslategrey;
 }
 
-div.status-planned {
-    background-color: orange;
-}
-
 div.status-new {
-    background-color: yellow;
+    background-color: orange;
 }
 
 button.add-board-btn {

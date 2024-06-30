@@ -1,6 +1,7 @@
 import { Dashboard } from "./Dashboard.js";
 import { Task } from "./Task.js";
 import { getDaysCount } from "../utility.js";
+import { navigate } from "../index.js";
 
 export class DashboardService {
     
@@ -15,6 +16,7 @@ export class DashboardService {
         this.setBoardMaxWidth(board);
         this.assignControllEvents(board);
         this.assignCreateTaskEvent(board);
+        this.assignChnageStatusEvent(board);
         this.assignEditEvents(board);
     }
 
@@ -76,6 +78,24 @@ export class DashboardService {
             newTaskBtn.style.display = 'none';
             document.getElementById('add-task-btn').addEventListener('click', () => this.addNewTask(board));
             document.getElementById('cncl-task-btn').addEventListener('click', () => this.hideNewTaskBlock());
+        });
+    }
+
+    assignChnageStatusEvent(board) {
+        document.getElementById('chng-sts-btn').addEventListener('click', () => {
+            if (board.status == 'completed') {
+                board.status = 'deleted'; //todo: remove board from dashboard list
+                history.pushState(null, null, `/dashboards`);
+                navigate();
+            }
+
+            if (board.status == 'new') {
+                board.status = 'active';
+            } else if (board.status == 'active') {
+                board.status = 'completed';
+            } 
+            this.saveDashboardToLocalStorage(board);
+            this.renderDashboard(board);
         });
     }
 

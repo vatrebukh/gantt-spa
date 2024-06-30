@@ -1,6 +1,7 @@
 {
     "id": 1001,
     "name": "Team zero: gantt chart",
+    "status": "completed",
     "tasks": [
         {
             "name": "Dashboard renderering",

@@ -2,12 +2,13 @@ import { getTaskHtml } from "./Task.js";
 import { formatDate, getTimelineDays, getFormattedDays, isHoliday } from "../utility.js";
 
 export class Dashboard {
-    constructor({id, name, tasks, startDate, endDate}) {
+    constructor({id, name, tasks, startDate, endDate, status}) {
         this.id = id;
         this.name = name;
         this.tasks = tasks;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.status = status;
     }
 
     getDashboardHtml() {
@@ -16,7 +17,7 @@ export class Dashboard {
         let today = new Date();
         return `
             <div class="dashboard">
-                <h1>${this.name}</h1>
+                <h1>${this.name} (${this.status})</h1>
                 <h2>${this.startDate} - ${this.endDate}</h2>
                 <div class="dashboard-content">
                     <div class="dashboard-header">
@@ -32,7 +33,8 @@ export class Dashboard {
                     </ul>
                 </div>
                 <div>
-                    <button id="new-task-btn"><span><img src="/static/img/plus.svg"></span><span>New task</span></button>
+                    <button id="new-task-btn" class="board-img-btn"><span><img src="/static/img/plus.svg"></span>New task</button>
+                    <button id="chng-sts-btn" class="board-img-btn"><span><img src="/static/img/right.svg"></span>Change status</button>
                 </div>
                 <div id="new-task-plc"></div>
             </div>

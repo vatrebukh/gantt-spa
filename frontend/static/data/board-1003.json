@@ -1,6 +1,7 @@
 {
     "id": 1003,
     "name": "Team zero: gantt chart - August",
+    "status": "new",
     "tasks": [
     ],
     "startDate": "2024-08-01",
