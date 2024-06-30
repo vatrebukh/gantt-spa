@@ -216,3 +216,31 @@ div.status-completed {
 div.status-planned {
     background-color: orange;
 }
+
+div.status-new {
+    background-color: yellow;
+}
+
+button.add-board-btn {
+    display: inline block;
+    padding: 5px;
+    margin: 5px;
+    margin-top: 10px;
+    font-size: 1.0rem;
+    width: 6rem;
+    background-color: rgb(103, 179, 123);
+    border-color: rgb(103, 179, 123);
+}
+
+div#new-board {
+    margin: 10px 0px;
+    padding: 5px 5px;
+    background-color: rgb(166, 241, 186);
+    width: fit-content;
+}
+
+#new-board input, #new-board label {
+    border: none;
+    margin: 5px;
+    padding: 5px;
+}

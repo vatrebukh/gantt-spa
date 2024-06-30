@@ -1,10 +1,10 @@
 import { DashboardService } from "./dashboard/dashboard-service.js";
-import { DashboardsService } from "./dashboard/dashboards-service.js";
+import { DashboardManagementService } from "./dashboard/dashboard-management-service.js";
 import { Router } from "./Router.js";
 import { getNavHtml } from "./home-service.js";
 
 const dashboardService = new DashboardService();
-const dashboardsService = new DashboardsService();
+const dashboardManagementService = new DashboardManagementService();
 
 const routes = [
     { path: '/', view: () => viewHome() },
@@ -45,7 +45,11 @@ async function viewDashboard(params) {
 }
 
 async function viewDashboards() {
-    await dashboardsService.loadDashboards();
+    await dashboardManagementService.viewDashboards();
+}
+
+function createDashboard() {
+    dashboardManagementService.createDashboard();
 }
 
 async function viewTeams(params) {
@@ -54,8 +58,4 @@ async function viewTeams(params) {
     } else {
         document.getElementById('root').innerHTML = 'Teams';
     }
-}
-
-function createDashboard() {
-    document.getElementById('root').innerHTML = "Create new dashboard";
 }
