@@ -38,12 +38,12 @@ export class DashboardService {
     }
 
     assignEditEvents(board) {
-        document.querySelectorAll('li.dashboard-task').forEach(element => this.assignEditEvent(board, element));
+        document.querySelectorAll('li.dashboard-task').forEach(element => this.assignEditTaskEvent(board, element));
     }
 
-    assignEditEvent(board, element) {
+    assignEditTaskEvent(board, element) {
         element.addEventListener('dblclick', () => {
-            let newTaskBtn = document.getElementById('new-task-btn');
+            let newTaskBtn = document.getElementById('dashboard-btns');
             newTaskBtn.style.display = 'none';
             let newTaskEl = document.getElementById('new-task-plc');
             newTaskEl.innerHTML = board.getNewTaskHtml();
@@ -72,10 +72,9 @@ export class DashboardService {
     }
 
     assignCreateTaskEvent(board) {
-        let newTaskBtn = document.getElementById('new-task-btn');
-        newTaskBtn.addEventListener('click', () => {
+        document.getElementById('new-task-btn').addEventListener('click', () => {
             document.getElementById('new-task-plc').innerHTML = board.getNewTaskHtml();
-            newTaskBtn.style.display = 'none';
+            document.getElementById('dashboard-btns').style.display = 'none';
             document.getElementById('add-task-btn').addEventListener('click', () => this.addNewTask(board));
             document.getElementById('cncl-task-btn').addEventListener('click', () => this.hideNewTaskBlock());
         });
@@ -120,7 +119,7 @@ export class DashboardService {
 
     hideNewTaskBlock() {
         document.getElementById('new-task-plc').innerHTML = '';
-        document.getElementById('new-task-btn').style.display = 'block';
+        document.getElementById('dashboard-btns').style.display = 'block';
     }
 
     populateTask(task) {

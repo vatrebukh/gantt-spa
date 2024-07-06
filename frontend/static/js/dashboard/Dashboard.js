@@ -46,7 +46,7 @@ export class Dashboard {
                         ${this.tasks.map(task => getTaskHtml(task, formattedDays)).join('')}
                     </ul>
                 </div>
-                <div>
+                <div id="dashboard-btns">
                     <button id="new-task-btn" class="board-img-btn"><span><img src="/static/img/plus.svg"></span>New task</button>
                     <button id="chng-sts-btn" class="board-img-btn"><span><img src="/static/img/right.svg"></span>Change status</button>
                 </div>
