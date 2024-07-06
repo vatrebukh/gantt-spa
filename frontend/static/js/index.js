@@ -2,9 +2,11 @@ import { DashboardService } from "./dashboard/dashboard-service.js";
 import { DashboardManagementService } from "./dashboard/dashboard-management-service.js";
 import { Router } from "./Router.js";
 import { getNavHtml } from "./home-service.js";
+import { TeamService } from "./team-service.js";
 
 const dashboardService = new DashboardService();
 const dashboardManagementService = new DashboardManagementService();
+const teamService = new TeamService();
 
 const routes = [
     { path: '/', view: () => viewHome() },
@@ -57,7 +59,7 @@ async function viewTeams(params) {
     if (params && params.id) {
         document.getElementById('root').innerHTML = `Team ${params.id}`;
     } else {
-        document.getElementById('root').innerHTML = 'Teams';
+        teamService.renderTeams();
     }
 }
 

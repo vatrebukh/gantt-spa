@@ -248,3 +248,39 @@ div#new-board {
     margin: 5px;
     padding: 5px;
 }
+
+
+/* teams */
+
+#add-team {
+    margin: 10px;
+    padding: 0;
+}
+#new-team-btn {
+    background-color: rgb(240, 189, 79);
+    border-color: rgb(240, 189, 79);
+}
+
+.teams-container {
+    margin: 10px;
+    padding: 0;
+}
+
+div.team-info {
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 4px;
+    min-width: 300px;
+    background-color: rgb(255, 196, 0);
+}
+
+.team-info div {
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+}
+
+.team-name {
+    font-size: 1.2rem;
+}

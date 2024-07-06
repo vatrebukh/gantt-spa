@@ -1,0 +1,33 @@
+[
+    {
+        "id": 1001,
+        "name": "Team Zero",
+        "users": [
+            
+        ]
+    },
+    {
+        "id": 1002,
+        "name": "Team One",
+        "users": [
+            {
+                "id": 1001,
+                "name": "John"
+            },
+            {
+                "id": 1002,
+                "name": "Jane"
+            }
+        ]
+    },
+    {
+        "id": 1003,
+        "name": "Team Single",
+        "users": [
+            {
+                "id": 1002,
+                "name": "Jane"
+            }
+        ]
+    }
+]
