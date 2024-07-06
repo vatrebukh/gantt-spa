@@ -26,6 +26,11 @@ export class DashboardManagementService {
                 history.pushState(null, null, `/dashboard/${id}`);
                 navigate();
             }));
+        
+        document.getElementById('new-board-btn').addEventListener('click', e => {
+            history.pushState(null, null, '/dashboards/new');
+            navigate();
+        });
     }
 
     findElement(target, description) {
@@ -37,6 +42,17 @@ export class DashboardManagementService {
     }
 
     renderDashboards(data) {
-        document.getElementById('root').innerHTML = Array.from(data).map(info => new Dashboard(info).getBoardInfoHtml()).join('');
+        document.getElementById('root').innerHTML = this.getDashboardInfoHtml(data);
+    }
+
+    getDashboardInfoHtml(data) {
+        return `
+            <div id="add-board">
+                <button id="new-board-btn" class="board-img-btn"><span><img src="/static/img/plus.svg"></span>New Dashboard</button>
+            </div>
+            <div id="board-infos">
+                ${Array.from(data).map(info => new Dashboard(info).getBoardInfoHtml()).join('')}
+            </div>
+        `;
     }
 }

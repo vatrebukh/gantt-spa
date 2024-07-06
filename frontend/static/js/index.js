@@ -13,6 +13,7 @@ const routes = [
     { path: '/dashboard/:id', view: (args) => viewDashboard(args) },
     { path: '/teams', view: () => viewTeams() },
     { path: '/teams/:id', view: (args) => viewTeams(args) },
+    { path: '/users', view: () => users() },
 ];
 
 const router = new Router(routes);
@@ -58,4 +59,8 @@ async function viewTeams(params) {
     } else {
         document.getElementById('root').innerHTML = 'Teams';
     }
+}
+
+async function users() {
+    document.getElementById('root').innerHTML = 'Users';
 }
