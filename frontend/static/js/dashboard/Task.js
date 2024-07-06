@@ -14,7 +14,8 @@ export function getTaskHtml(task, globalDays) {
     return `
         <li class="dashboard-task">
             <span class="task-assignee">${task.assignee}</span>
-            <span class="task-name">${task.name}</span>
+            <span class="task-name">${getShortName(task.name)}</span>
+            <span class="hidden task-name-long">${task.name}</span>
             <span class="task-timeline">${getSpansHtml(task.startDate, task.endDate, globalDays)}</span>
             <span class="task-controls">
                 <span><img class="dnmark" src="/static/img/down.svg"></span>
@@ -23,6 +24,10 @@ export function getTaskHtml(task, globalDays) {
             </span>
         </li>
     `;
+}
+
+function getShortName(taskName) {
+    return taskName.length > 35 ? taskName.slice(0, 32) + '...' : taskName;
 }
 
 function getSpansHtml(startDate, endDate, globalDays) {

@@ -48,7 +48,7 @@ export class DashboardService {
             let newTaskEl = document.getElementById('new-task-plc');
             newTaskEl.innerHTML = board.getNewTaskHtml();
 
-            let edited = board.tasks.filter(task => task.name == element.querySelector('span.task-name').textContent)[0];
+            let edited = board.tasks.filter(task => task.name == element.querySelector('span.task-name-long').textContent)[0];
             this.populateEditTask(edited);
 
             document.getElementById('add-task-btn').textContent = 'Save task';
@@ -57,7 +57,8 @@ export class DashboardService {
         });
     }
 
-    populateEditTask(edited) {  
+    populateEditTask(edited) {
+        console.log(edited);
         document.getElementById('new-task-assignee').value = edited.assignee;
         document.getElementById('new-task-name').value = edited.name;
         document.getElementById('new-task-start').value = edited.startDate;

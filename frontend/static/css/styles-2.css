@@ -9,6 +9,9 @@ ul {
 #nav {
     margin-bottom: 20px;
 }
+.hidden {
+    display: none;
+}
 
 div.dashboard {
     margin: 20px;
