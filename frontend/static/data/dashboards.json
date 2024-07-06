@@ -4,7 +4,7 @@
         "name": "Team zero: gantt chart",
         "startDate": "2024-06-07",
         "endDate": "2024-06-30",
-        "status": "completed",
+        "status": "closed",
         "tasks": [
             {
                 "name": "Dashboard renderering",

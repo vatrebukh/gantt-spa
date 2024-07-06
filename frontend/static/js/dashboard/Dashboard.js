@@ -47,7 +47,7 @@ export class Dashboard {
                     </ul>
                 </div>
                 <div id="dashboard-btns">
-                    <button id="new-task-btn" class="board-img-btn"><span><img src="/static/img/plus.svg"></span>New task</button>
+                    ${this.status == Status.CLOSED ? '' : '<button id="new-task-btn" class="board-img-btn"><span><img src="/static/img/plus.svg"></span>New task</button>'}
                     <button id="chng-sts-btn" class="board-img-btn"><span><img src="/static/img/right.svg"></span>Change status</button>
                 </div>
                 <div id="new-task-plc"></div>
@@ -92,6 +92,7 @@ export class Dashboard {
                 <label hidden>${this.id}</label>
                 <div>${this.name}</div>
                 <div>${this.startDate} - ${this.endDate}</div>
+                <div>${this.tasks.length} tasks</div>
                 <div>${this.status}</div>
             </div>
         `;
@@ -113,5 +114,11 @@ export class Dashboard {
             </div>
         `;
     }
+}
+
+export const Status = {
+        NEW: 'new',
+        ACTIVE: 'active',
+        CLOSED: 'closed',
 }
 

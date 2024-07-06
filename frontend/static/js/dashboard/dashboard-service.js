@@ -1,4 +1,4 @@
-import { Dashboard } from "./Dashboard.js";
+import { Dashboard, Status } from "./Dashboard.js";
 import { Task } from "./Task.js";
 import { getDaysCount } from "../utility.js";
 import { navigate } from "../index.js";
@@ -14,17 +14,21 @@ export class DashboardService {
         document.getElementById('root').innerHTML = board.getDashboardHtml();
         document.querySelector('div.dashboard-header span.task-timeline').addEventListener('scroll', this.syncScroll);
         this.setBoardMaxWidth(board);
-        this.assignControllEvents(board);
-        this.assignCreateTaskEvent(board);
         this.assignChangeStatusEvent(board);
-        this.assignEditEvents(board);
+        if (board.status != Status.CLOSED) {
+            this.assignControllEvents(board);
+            this.assignCreateTaskEvent(board);
+            this.assignEditEvents(board);
+        }
     }
 
     renderTaskList(board) {
         document.querySelector('ul.dashboard-tasks').innerHTML = board.getTaskListHtml();
-        this.assignControllEvents(board);
-        this.assignEditEvents(board);
         this.syncScroll();
+        if (board.status != Status.CLOSED) {
+            this.assignControllEvents(board);
+            this.assignEditEvents(board);
+        }
     }
 
     setBoardMaxWidth(board) {
@@ -58,7 +62,6 @@ export class DashboardService {
     }
 
     populateEditTask(edited) {
-        console.log(edited);
         document.getElementById('new-task-assignee').value = edited.assignee;
         document.getElementById('new-task-name').value = edited.name;
         document.getElementById('new-task-start').value = edited.startDate;
@@ -83,17 +86,17 @@ export class DashboardService {
 
     assignChangeStatusEvent(board) {
         document.getElementById('chng-sts-btn').addEventListener('click', async () => {
-            if (board.status == 'completed') {
+            if (board.status == Status.CLOSED) {
                 await this.removeDashboard(board);
                 history.pushState(null, null, `/dashboards`);
                 navigate();
                 return;
             }
 
-            if (board.status == 'new') {
-                board.status = 'active';
-            } else if (board.status == 'active') {
-                board.status = 'completed';
+            if (board.status == Status.NEW) {
+                board.status = Status.ACTIVE;
+            } else if (board.status == Status.ACTIVE) {
+                board.status = Status.CLOSED;
             }
             await this.saveDashboard(board);
             this.renderDashboard(board);
@@ -168,7 +171,7 @@ export class DashboardService {
             newBoard.startDate = document.getElementById('new-board-start').value;
             newBoard.endDate = document.getElementById('new-board-end').value;
             newBoard.id = await this.generateBoardId();
-            newBoard.status = 'new';
+            newBoard.status = Status.NEW;
             newBoard.tasks = [];
             await this.saveDashboard(newBoard);
             history.pushState(null, null, `/dashboard/${newBoard.id}`);

@@ -212,7 +212,7 @@ div.status-active {
     background-color: lightgreen;
 }
 
-div.status-completed {
+div.status-closed {
     background-color: lightslategrey;
 }
 
