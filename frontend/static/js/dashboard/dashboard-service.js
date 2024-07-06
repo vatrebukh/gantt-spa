@@ -84,8 +84,7 @@ export class DashboardService {
     assignChangeStatusEvent(board) {
         document.getElementById('chng-sts-btn').addEventListener('click', async () => {
             if (board.status == 'completed') {
-                board.status = 'deleted'; //todo: remove board from dashboard list
-                await this.saveDashboard(board);
+                await this.removeDashboard(board);
                 history.pushState(null, null, `/dashboards`);
                 navigate();
                 return;
@@ -99,6 +98,11 @@ export class DashboardService {
             await this.saveDashboard(board);
             this.renderDashboard(board);
         });
+    }
+
+    async removeDashboard(board) {
+        let boards = Array.from(await this.getDashboards()).filter(el => el.id != board.id);
+        localStorage.setItem('dashboards', JSON.stringify(boards));
     }
 
     async addNewTask(board) {

@@ -4,7 +4,7 @@ import { navigate } from "../index.js";
 export class DashboardManagementService {
     async viewDashboards() {
         let dashboards = await this.getDashboardsFromLocalStorage();
-        this.previewDashboards(dashboards);
+        this.renderDashboards(dashboards);
         this.assignEvents();
     }
 
@@ -36,7 +36,7 @@ export class DashboardManagementService {
         }
     }
 
-    previewDashboards(data) {
+    renderDashboards(data) {
         document.getElementById('root').innerHTML = Array.from(data).map(info => new Dashboard(info).getBoardInfoHtml()).join('');
     }
 }
