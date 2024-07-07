@@ -59,7 +59,7 @@ function createDashboard() {
 
 async function viewTeams(params) {
     if (params && params.id) {
-        document.getElementById('root').innerHTML = `Team ${params.id}`;
+        teamService.renderTeam(params.id);
     } else {
         teamService.renderTeams();
     }

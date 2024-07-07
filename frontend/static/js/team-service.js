@@ -1,9 +1,17 @@
+import { navigate } from "./index.js";
+import { User } from "./user-service.js";
 
 export class TeamService {
 
     async renderTeams() {
         const teams = await this.loadTeams();
         document.getElementById('root').innerHTML = this.getTeamsHtml(teams);
+        this.assignEvents();
+    }
+
+    async renderTeam(teamId) {
+        let team = Array.from(await this.loadTeams()).filter(el => el.id == teamId).map(el => new Team(el))[0];
+        document.getElementById('root').innerHTML = this.getTeamHtml(team);
     }
 
     async loadTeams() {
@@ -24,10 +32,47 @@ export class TeamService {
             </div>
         `;
     }
+
+    getTeamHtml(team) {
+        return `
+            <div class="teams-container">
+                <div id="team-info">
+                    <span>${team.name}</span>
+                    <div id="users">
+                        <ul>
+                            ${Array.from(team.users).map(info => new User(info).getUserHtml()).join('')}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    assignEvents() {
+        document.querySelectorAll('div.team-info')
+            .forEach(element => element.addEventListener('click', e => {
+                let parent = this.findElement(e.target, 'div.team-info');
+                let id = parent.querySelector('label').textContent;
+                history.pushState(null, null, `/teams/${id}`);
+                navigate();
+            }));
+        
+        document.getElementById('new-team-btn').addEventListener('click', e => {
+            history.pushState(null, null, '/teams/new');
+            navigate();
+        });
+    }
+
+    findElement(target, description) {
+        if (target.matches(description)) {
+            return target;
+        } else {
+            return this.findElement(target.parentElement, description);
+        }
+    }
 }
 
 class Team {
-
     constructor(data) {
         this.id = data.id;
         this.name = data.name;
