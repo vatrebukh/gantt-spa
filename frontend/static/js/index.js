@@ -3,10 +3,12 @@ import { DashboardManagementService } from "./dashboard/dashboard-management-ser
 import { Router } from "./Router.js";
 import { getNavHtml } from "./home-service.js";
 import { TeamService } from "./team-service.js";
+import { UserService } from "./user-service.js";
 
 const dashboardService = new DashboardService();
 const dashboardManagementService = new DashboardManagementService();
 const teamService = new TeamService();
+const userService = new UserService();
 
 const routes = [
     { path: '/', view: () => viewHome() },
@@ -64,5 +66,5 @@ async function viewTeams(params) {
 }
 
 async function users() {
-    document.getElementById('root').innerHTML = 'Users';
+    userService.renderUsers();
 }

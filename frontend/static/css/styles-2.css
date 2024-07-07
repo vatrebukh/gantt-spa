@@ -4,11 +4,13 @@ body {
 
 ul {
     list-style-type: none;
+    padding: 0px;
 }
 
 #nav {
     margin-bottom: 20px;
 }
+
 .hidden {
     display: none;
 }
@@ -57,7 +59,6 @@ div.dashboard-header span.day-span {
 
 ul.dashboard-tasks {
     margin: 0px;
-    padding: 0;
 }
 
 .dashboard-tasks li {
@@ -283,4 +284,22 @@ div.team-info {
 
 .team-name {
     font-size: 1.2rem;
+}
+
+
+/* users */
+
+.users-container {
+    margin: 10px;
+    padding: 0;
+}
+
+#users li {
+    position: relative;
+    display: flex;
+    margin: 0;
+    padding: 5;
+    background-color: rgb(166, 241, 186);
+    border-bottom: 1px solid grey;
+    max-height: 22px;
 }
