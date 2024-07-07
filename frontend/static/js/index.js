@@ -16,6 +16,7 @@ const routes = [
     { path: '/dashboards/new', view: () => createDashboard() },
     { path: '/dashboard/:id', view: (args) => viewDashboard(args) },
     { path: '/teams', view: () => viewTeams() },
+    { path: '/teams/new', view: (args) => viewTeams() },
     { path: '/teams/:id', view: (args) => viewTeams(args) },
     { path: '/users', view: () => users() },
 ];

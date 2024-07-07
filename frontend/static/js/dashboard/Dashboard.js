@@ -66,9 +66,9 @@ export class Dashboard {
                 <input type="text" id="new-task-assignee" class="task-assignee" placeholder="Assigned to"></input>
                 <input type="text" id="new-task-name" class="task-name" placeholder="Task name"></input>
                 <label for="task-timeline">Start date</label>
-                <input type="date" id="new-task-start" class="task-timeline" min="${this.startDate}"></input>
+                <input type="date" id="new-task-start" class="task-timeline" min="${this.startDate}" max="${this.endDate}"></input>
                 <label for="task-timeline">End date</label>
-                <input type="date" id="new-task-end" class="task-timeline" max="${this.endDate}"></input>
+                <input type="date" id="new-task-end" class="task-timeline" min="${this.startDate}" max="${this.endDate}"></input>
                 
                 <div>                
                     <button class="add-task-btn" id="add-task-btn"><span>Create task</span></button>

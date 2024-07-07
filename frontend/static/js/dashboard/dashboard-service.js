@@ -70,9 +70,13 @@ export class DashboardService {
 
     async updateTask(edited, board) {
         this.populateTask(edited);
-        this.hideNewTaskBlock();
-        await this.saveDashboard(board);
-        this.renderTaskList(board);
+        if (edited.startDate > edited.endDate) {
+            console.warn('Start date is later then end date');
+        } else {
+            this.hideNewTaskBlock();
+            await this.saveDashboard(board);
+            this.renderTaskList(board);
+        }
     }
 
     assignCreateTaskEvent(board) {
@@ -113,6 +117,10 @@ export class DashboardService {
         this.populateTask(newTask);
         if (!newTask.name || !newTask.startDate || !newTask.endDate) {
             console.warn('Mandatory fields required');
+            return;
+        }
+        if (newTask.startDate > newTask.endDate) {
+            console.warn('Start date is later then end date');
             return;
         }
         board.tasks.push(newTask);
