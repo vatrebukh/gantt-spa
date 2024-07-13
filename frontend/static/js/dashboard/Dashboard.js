@@ -11,15 +11,15 @@ export class Dashboard {
         this.status = status;
     }
 
-    moveDown(name) {
-        let task = this.tasks.find(task => task.name == name);
+    moveDown(id) {
+        let task = this.tasks.find(task => task.id == id);
         let idx = this.tasks.indexOf(task);
         this.tasks[idx] = this.tasks[idx + 1];
         this.tasks[idx + 1] = task;
     }
 
-    moveUp(name) {
-        let task = this.tasks.find(task => task.name == name);
+    moveUp(id) {
+        let task = this.tasks.find(task => task.id == id);
         let idx = this.tasks.indexOf(task);
         this.tasks[idx] = this.tasks[idx - 1];
         this.tasks[idx - 1] = task;

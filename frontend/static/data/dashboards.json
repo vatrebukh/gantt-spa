@@ -7,42 +7,49 @@
         "status": "closed",
         "tasks": [
             {
+                "id": 1001,
                 "name": "Dashboard renderering",
                 "startDate": "2024-06-07",
                 "endDate": "2024-06-09",
                 "assignee": "John"
             },
             {
+                "id": 1002,
                 "name": "Dashboard controlls events",
                 "startDate": "2024-06-10",
                 "endDate": "2024-06-10",
                 "assignee": "John"
             },
             {
+                "id": 1003,
                 "name": "Add new task to dashboard",
                 "startDate": "2024-06-13",
                 "endDate": "2024-06-15",
                 "assignee": "John"
             },
             {
+                "id": 1004,
                 "name": "Edit task in dashboard",
                 "startDate": "2024-06-16",
                 "endDate": "2024-06-17",
                 "assignee": "John"
             },
             {
+                "id": 1005,
                 "name": "Store modified tasks in localstorage",
                 "startDate": "2024-06-18",
                 "endDate": "2024-06-18",
                 "assignee": "John"
             },
             {
+                "id": 1006,
                 "name": "Add wekends and current date",
                 "startDate": "2024-06-12",
                 "endDate": "2024-06-12",
                 "assignee": "John"
             },
             {
+                "id": 1007,
                 "name": "Syncronize scrolling",
                 "startDate": "2024-06-11",
                 "endDate": "2024-06-11",
@@ -58,30 +65,35 @@
         "status": "active",
         "tasks": [
             {
+                "id": 1001,
                 "name": "Display list of dashboards",
                 "startDate": "2024-07-01",
                 "endDate": "2024-07-05",
                 "assignee": "John"
             },
             {
+                "id": 1002,
                 "name": "Navigate to dashboard by id",
                 "startDate": "2024-07-06",
                 "endDate": "2024-07-10",
                 "assignee": "John"
             },
             {
+                "id": 1003,
                 "name": "Create new dashboard",
                 "startDate": "2024-07-11",
                 "endDate": "2024-07-15",
                 "assignee": "John"
             },
             {
+                "id": 1004,
                 "name": "Remove dashboard",
                 "startDate": "2024-07-16",
                 "endDate": "2024-07-20",
                 "assignee": "John"
             },
             {
+                "id": 1005,
                 "name": "Edit dashboard description",
                 "startDate": "2024-07-21",
                 "endDate": "2024-07-25",

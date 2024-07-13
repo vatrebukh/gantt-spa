@@ -52,7 +52,7 @@ export class DashboardService {
             let newTaskEl = document.getElementById('new-task-plc');
             newTaskEl.innerHTML = board.getNewTaskHtml();
 
-            let edited = board.tasks.filter(task => task.name == element.querySelector('span.task-name-long').textContent)[0];
+            let edited = board.tasks.filter(task => task.id == element.querySelector('label').textContent)[0];
             this.populateEditTask(edited);
 
             document.getElementById('add-task-btn').textContent = 'Save task';
@@ -114,6 +114,7 @@ export class DashboardService {
 
     async addNewTask(board) {
         let newTask = new Task();
+        newTask.id = this.getNewTaskId(board);
         this.populateTask(newTask);
         if (!newTask.name || !newTask.startDate || !newTask.endDate) {
             console.warn('Mandatory fields required');
@@ -134,6 +135,16 @@ export class DashboardService {
         document.getElementById('dashboard-btns').style.display = 'block';
     }
 
+    getNewTaskId(board) {
+        let ids = board.tasks.map(task => task.id);
+        console.log(ids);
+        let id = 1001; 
+        while (ids.includes(id)) {
+            id++;
+        }
+        return id;
+    }
+
     populateTask(task) {
         task.assignee = document.getElementById('new-task-assignee').value;
         task.name = document.getElementById('new-task-name').value ;
@@ -148,19 +159,19 @@ export class DashboardService {
     }
 
     async removeTask(board, element) {
-        board.tasks = board.tasks.filter(task => task.name != element.parentElement.parentElement.parentElement.querySelector('span.task-name').textContent);
+        board.tasks = board.tasks.filter(task => task.id != element.parentElement.parentElement.parentElement.querySelector('label').textContent);
         await this.saveDashboard(board);  //todo: save on click?
         this.renderTaskList(board);
     }
 
     async moveUp(board, element) {
-        board.moveDown(element.parentElement.parentElement.parentElement.querySelector('span.task-name').textContent);
+        board.moveDown(element.parentElement.parentElement.parentElement.querySelector('label').textContent);
         await this.saveDashboard(board);  //todo: save on click?
         this.renderTaskList(board);
     }
 
     async moveDown(board, element) {
-        board.moveUp(element.parentElement.parentElement.parentElement.querySelector('span.task-name').textContent);
+        board.moveUp(element.parentElement.parentElement.parentElement.querySelector('label').textContent);
         await this.saveDashboard(board);  //todo: save on click?
         this.renderTaskList(board);
     }

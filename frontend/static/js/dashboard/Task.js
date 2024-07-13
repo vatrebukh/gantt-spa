@@ -13,6 +13,7 @@ export class Task {
 export function getTaskHtml(task, globalDays) {
     return `
         <li class="dashboard-task">
+            <label hidden>${task.id}</label>
             <span class="task-assignee">${task.assignee}</span>
             <span class="task-name">${getShortName(task.name)}</span>
             <span class="hidden task-name-long">${task.name}</span>
