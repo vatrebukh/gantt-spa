@@ -311,3 +311,8 @@ span.user-delete {
     height: 22px;
     cursor: pointer;
 }
+
+.user-name {
+    min-width: 10rem;
+    font-size: 1.0rem;
+}

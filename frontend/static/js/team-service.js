@@ -26,16 +26,23 @@ export class TeamService {
     assignTeamEvents(team) {
         document.querySelectorAll('img.rmmark').forEach(element => element.addEventListener('click', element => this.removeUser(team, element)));
 
-        document.getElementById('new-user-btn').addEventListener('click', e => {
-            document.getElementById('add-user').innerHTML = userService.getNewUserHtml();
+        document.getElementById('new-user-btn').addEventListener('click', async () => {
+            let globalUers = await userService.getUsers();
+            globalUers = globalUers.filter(gu => !team.users.map(user => user.id).includes(gu.id));
+            document.getElementById('add-user').innerHTML = this.getNewUserHtml(globalUers);
             document.getElementById('add-user-btn').addEventListener('click', () => this.addUser(team));
             document.getElementById('cncl-user-btn').addEventListener('click', () => this.onCancel());
         });
     }
 
     async addUser(team) {
-        team.users.push({ id: this.getNewId(team.users), name: document.getElementById('new-user-name').value });
-        await this.updateTeam(team);
+        let username = document.getElementById('new-user-name').value;
+        if (!username) {
+            console.warn('User name can not be empty');
+        } else {
+            team.users.push({ id: this.getNewId(team.users), name: username });
+            await this.updateTeam(team);
+        }
         await this.renderTeam(team.id);
     }
 
@@ -54,7 +61,6 @@ export class TeamService {
     }
 
     async removeUser(team, element) {
-        console.log(team);
         team.users = team.users.filter(user => user.id != element.target.parentElement.parentElement.querySelector('label').textContent);
         await this.updateTeam(team);
         await this.renderTeam(team.id);
@@ -70,6 +76,20 @@ export class TeamService {
             return it;
         })
         localStorage.setItem('teams', JSON.stringify(teams));
+    }
+
+    getNewUserHtml(users) {
+        return `
+            <div id="new-user">
+                <select id="new-user-name" class="user-name">
+                    ${Array.from(users).map(user => `<option>${user.name}</option>`).join('')}
+                </select>
+                <div>                
+                    <button class="add-task-btn" id="add-user-btn"><span>Add user</span></button>
+                    <button class="add-task-btn" id="cncl-user-btn"><span>Cancel</span></button>
+                </div>
+            </div>
+        `;
     }
 
     getTeamsHtml(data) {
