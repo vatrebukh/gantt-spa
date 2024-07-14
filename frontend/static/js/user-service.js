@@ -16,8 +16,8 @@ export class UserService {
 
         document.getElementById('new-user-btn').addEventListener('click', e => {
             document.getElementById('add-user').innerHTML = this.getNewUserHtml();
-            document.getElementById('add-task-btn').addEventListener('click', () => this.addUser());
-            document.getElementById('cncl-task-btn').addEventListener('click', () => this.onCancel());
+            document.getElementById('add-user-btn').addEventListener('click', () => this.addUser());
+            document.getElementById('cncl-user-btn').addEventListener('click', () => this.onCancel());
         });
     }
 
@@ -68,10 +68,10 @@ export class UserService {
     getNewUserHtml() {
         return `
             <div id="new-user">
-                <input type="text" id="new-user-name" class="user-name" placeholder="Task name"></input>
+                <input type="text" id="new-user-name" class="user-name" placeholder="User name"></input>
                 <div>                
-                    <button class="add-task-btn" id="add-task-btn"><span>Add user</span></button>
-                    <button class="add-task-btn" id="cncl-task-btn"><span>Cancel</span></button>
+                    <button class="add-task-btn" id="add-user-btn"><span>Add user</span></button>
+                    <button class="add-task-btn" id="cncl-user-btn"><span>Cancel</span></button>
                 </div>
             </div>
         `;
