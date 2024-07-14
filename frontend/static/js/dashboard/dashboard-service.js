@@ -137,7 +137,6 @@ export class DashboardService {
 
     getNewTaskId(board) {
         let ids = board.tasks.map(task => task.id);
-        console.log(ids);
         let id = 1001; 
         while (ids.includes(id)) {
             id++;

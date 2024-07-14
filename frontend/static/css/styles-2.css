@@ -303,3 +303,11 @@ div.team-info {
     border-bottom: 1px solid grey;
     max-height: 22px;
 }
+
+span.user-delete {
+    position: absolute;
+    right: 6px;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+}
