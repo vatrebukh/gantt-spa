@@ -54,8 +54,8 @@ async function viewDashboards() {
     await dashboardManagementService.viewDashboards();
 }
 
-function createDashboard() {
-    dashboardService.createDashboard();
+async function createDashboard() {
+    await dashboardService.createDashboard();
 }
 
 async function viewTeams(params) {

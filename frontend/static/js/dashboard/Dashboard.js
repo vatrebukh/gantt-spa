@@ -2,9 +2,10 @@ import { getTaskHtml } from "./Task.js";
 import { formatDate, getTimelineDays, getFormattedDays, isHoliday } from "../utility.js";
 
 export class Dashboard {
-    constructor({id, name, tasks, startDate, endDate, status}) {
+    constructor({id, name, team, tasks, startDate, endDate, status}) {
         this.id = id;
         this.name = name;
+        this.team = team;
         this.tasks = tasks;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -31,7 +32,7 @@ export class Dashboard {
         let today = new Date();
         return `
             <div class="dashboard">
-                <h1>${this.name} (${this.status})</h1>
+                <h2>${this.team.name}: ${this.name} (${this.status})</h2>
                 <h2>${this.startDate} - ${this.endDate}</h2>
                 <div class="dashboard-content">
                     <div class="dashboard-header">
@@ -78,11 +79,11 @@ export class Dashboard {
         `;
     }
 
-    getBoardInfoHtml() {
+    getBoardInfoHtml(teams) {
         if (this.id) {
             return this.getFullBoardInfoHtml();
         } else {
-            return this.getEmptyBoardInfoHtml();
+            return this.getEmptyBoardInfoHtml(teams);
         }
     }
 
@@ -98,10 +99,13 @@ export class Dashboard {
         `;
     }
 
-    getEmptyBoardInfoHtml() {
+    getEmptyBoardInfoHtml(teams) {
         return `
             <div id="new-board">
                 <input type="text" id="new-board-name" placeholder="Dashboard name"></input>
+                <select id="team-name" class="user-name">
+                    ${Array.from(teams).map(team => `<option>${team.name}(${team.id})</option>`).join('')}
+                </select>
                 <label for="board-start-date">Start date</label>
                 <input type="date" id="new-board-start" class="board-start-date"></input>
                 <label for="board-end-date">End date</label>

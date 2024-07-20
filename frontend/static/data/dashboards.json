@@ -1,7 +1,17 @@
 [
     {
         "id": 1001,
-        "name": "Team zero: gantt chart",
+        "name": "Gantt chart",
+        "team": {
+            "id": 1001,
+            "name": "Team Zero",
+            "users": [
+                {
+                    "id": 1001,
+                    "name": "John"
+                }
+            ]
+        },
         "startDate": "2024-06-07",
         "endDate": "2024-06-30",
         "status": "closed",
@@ -59,7 +69,21 @@
     },
     {
         "id": 1002,
-        "name": "Team zero: gantt chart - July",
+        "name": "Gantt chart - July",
+        "team": {
+            "id": 1002,
+            "name": "Team One",
+            "users": [
+                {
+                    "id": 1001,
+                    "name": "John"
+                },
+                {
+                    "id": 1003,
+                    "name": "Jane"
+                }
+            ]
+        },
         "startDate": "2024-07-01",
         "endDate": "2024-07-31",
         "status": "active",
@@ -103,7 +127,17 @@
     },
     {
         "id": 1003,
-        "name": "Team zero: gantt chart - August",
+        "name": "Gantt chart - August",
+        "team": {
+            "id": 1003,
+            "name": "Team Single",
+            "users": [
+                {
+                    "id": 1003,
+                    "name": "Jane"
+                }
+            ]
+        },
         "startDate": "2024-08-01",
         "endDate": "2024-08-31",
         "status": "new",

@@ -1,9 +1,12 @@
 import { Dashboard, Status } from "./Dashboard.js";
+import { TeamService } from "../team-service.js";
 import { Task } from "./Task.js";
 import { getDaysCount } from "../utility.js";
 import { navigate } from "../index.js";
 
 export class DashboardService {
+
+    teamService = new TeamService();
     
     async loadDashboard(args) {
         let board = await this.findDashboard(args.id);
@@ -181,16 +184,18 @@ export class DashboardService {
         taskSpans.forEach((span) => span.scrollLeft = masterSpan.scrollLeft);
     }
 
-    createDashboard() {
+    async createDashboard() {
+        let teams = await this.teamService.loadTeams();
         let newBoard = new Dashboard({})
-        document.getElementById('root').innerHTML = newBoard.getBoardInfoHtml();
-        document.getElementById('add-board-btn').addEventListener('click', async e => {
+        document.getElementById('root').innerHTML = newBoard.getBoardInfoHtml(teams);
+        document.getElementById('add-board-btn').addEventListener('click', async () => {
             newBoard.name = document.getElementById('new-board-name').value;
             newBoard.startDate = document.getElementById('new-board-start').value;
             newBoard.endDate = document.getElementById('new-board-end').value;
             newBoard.id = await this.generateBoardId();
             newBoard.status = Status.NEW;
             newBoard.tasks = [];
+            newBoard.team = this.findTeam(teams);
             await this.saveDashboard(newBoard);
             history.pushState(null, null, `/dashboard/${newBoard.id}`);
             navigate();
@@ -199,6 +204,13 @@ export class DashboardService {
             history.pushState(null, null, '/');
             navigate();
         });
+    }
+
+    findTeam(teams) {
+        let teamNameWithId = document.getElementById('team-name').value;
+        let teamId = teamNameWithId.split('(')[1].split(')')[0];
+        let team = Array.from(teams).filter(el => el.id == teamId)[0];
+        return team;
     }
 
     async findDashboard(id) {
