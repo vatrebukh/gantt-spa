@@ -1,6 +1,6 @@
 import { DashboardService } from "./dashboard/dashboard-service.js";
 import { DashboardManagementService } from "./dashboard/dashboard-management-service.js";
-import { Router } from "./Router.js";
+import { Router } from "./router.js";
 import { getNavHtml } from "./home-service.js";
 import { TeamService } from "./team-service.js";
 import { UserService } from "./user-service.js";
