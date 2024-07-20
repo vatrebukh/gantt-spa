@@ -16,7 +16,7 @@ const routes = [
     { path: '/dashboards/new', view: () => createDashboard() },
     { path: '/dashboard/:id', view: (args) => viewDashboard(args) },
     { path: '/teams', view: () => viewTeams() },
-    { path: '/teams/new', view: (args) => viewTeams() },
+    { path: '/teams/new', view: () => createTeam() },
     { path: '/teams/:id', view: (args) => viewTeams(args) },
     { path: '/users', view: () => users() },
 ];
@@ -64,6 +64,10 @@ async function viewTeams(params) {
     } else {
         teamService.renderTeams();
     }
+}
+
+function createTeam() {
+    teamService.createTeam();
 }
 
 async function users() {

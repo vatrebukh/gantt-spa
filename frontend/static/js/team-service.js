@@ -18,6 +18,38 @@ export class TeamService {
         this.assignTeamEvents(team);
     }
 
+    createTeam() {
+        let team = new Team({});
+        document.getElementById('root').innerHTML = this.getNewTeamHtml(team);
+        document.getElementById('add-board-btn').addEventListener('click', async () => {
+            team.name = document.getElementById('new-team-name').value;
+            team.id = await this.generateTeamId();
+            team.users = [];
+            await this.saveTeam(team);
+            history.pushState(null, null, `/teams/${team.id}`);
+            navigate();
+        });
+        document.getElementById('cncl-board-btn').addEventListener('click', e => {
+            history.pushState(null, null, '/');
+            navigate();
+        });
+    }
+
+    async generateTeamId() {
+        let ids = Array.from(await this.loadTeams()).filter(team => team && team.id).map(team => team.id);
+        let id = 1001; 
+        while (ids.includes(id)) {
+            id++;
+        }
+        return id;
+    }
+
+    async saveTeam(team) {
+        let teams = Array.from(await this.loadTeams()).filter(el => el.id != team.id);
+        teams.push(team);
+        localStorage.setItem('teams', JSON.stringify(teams));
+    }
+
     async loadTeams() {
         let data = JSON.parse(localStorage.getItem('teams'));
         return data ? data : await fetch('/static/data/teams.json').then(response => response.json());
@@ -118,6 +150,19 @@ export class TeamService {
                 </div>
                 <div id="add-user">
                     <button id="new-user-btn" class="board-img-btn"><span><img src="/static/img/plus.svg"></span>Add User</button>
+                    <button id="remove-btn" class="board-img-btn"><span><img src="/static/img/del.svg"></span>Delete Team</button>
+                </div>
+            </div>
+        `;
+    }
+
+    getNewTeamHtml(team) {
+        return `
+            <div id="new-team">
+                <input type="text" id="new-team-name" class="team-name" placeholder="Team name"></input>
+                <div>                
+                    <button class="add-board-btn" id="add-board-btn"><span>Create</span></button>
+                    <button class="add-board-btn" id="cncl-board-btn"><span>Cancel</span></button>
                 </div>
             </div>
         `;
