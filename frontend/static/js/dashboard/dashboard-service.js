@@ -214,8 +214,12 @@ export class DashboardService {
     }
 
     async findDashboard(id) {
-        let data = await this.getDashboards();
-        return Array.from(data).filter(el => el.id == id).map(el => new Dashboard(el))[0];
+        let dashboards = await this.getDashboards();
+        let teams = await this.teamService.loadTeams();
+        let dashboard = Array.from(dashboards).filter(el => el.id == id).map(el => new Dashboard(el))[0];
+        let team = Array.from(teams).filter(el => el.id == dashboard.team.id)[0];
+        dashboard.team = team;
+        return dashboard;
     }
 
     async saveDashboard(board) {

@@ -3,14 +3,7 @@
         "id": 1001,
         "name": "Gantt chart",
         "team": {
-            "id": 1001,
-            "name": "Team Zero",
-            "users": [
-                {
-                    "id": 1001,
-                    "name": "John"
-                }
-            ]
+            "id": 1001
         },
         "startDate": "2024-06-07",
         "endDate": "2024-06-30",
@@ -71,18 +64,7 @@
         "id": 1002,
         "name": "Gantt chart - July",
         "team": {
-            "id": 1002,
-            "name": "Team One",
-            "users": [
-                {
-                    "id": 1001,
-                    "name": "John"
-                },
-                {
-                    "id": 1003,
-                    "name": "Jane"
-                }
-            ]
+            "id": 1002
         },
         "startDate": "2024-07-01",
         "endDate": "2024-07-31",
@@ -129,14 +111,7 @@
         "id": 1003,
         "name": "Gantt chart - August",
         "team": {
-            "id": 1003,
-            "name": "Team Single",
-            "users": [
-                {
-                    "id": 1003,
-                    "name": "Jane"
-                }
-            ]
+            "id": 1003
         },
         "startDate": "2024-08-01",
         "endDate": "2024-08-31",

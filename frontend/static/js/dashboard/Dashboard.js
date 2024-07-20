@@ -64,7 +64,9 @@ export class Dashboard {
     getNewTaskHtml() {
         return `
             <div id="new-task">
-                <input type="text" id="new-task-assignee" class="task-assignee" placeholder="Assigned to"></input>
+                <select id="new-task-assignee" class="task-assignee">
+                    ${Array.from(this.team.users).map(user => `<option>${user.name}</option>`).join('')}
+                </select>
                 <input type="text" id="new-task-name" class="task-name" placeholder="Task name"></input>
                 <label for="task-timeline">Start date</label>
                 <input type="date" id="new-task-start" class="task-timeline" min="${this.startDate}" max="${this.endDate}"></input>
