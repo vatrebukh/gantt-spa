@@ -84,7 +84,7 @@ export class User {
         this.name = data.name;
     }
 
-    getUserHtml() {
+    getUserHtml() {   //TODO: class name
         return `
             <li class="team-info">
                 <label hidden>${this.id}</label>
